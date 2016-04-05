@@ -4,7 +4,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Database;
-using Models;
 using MVCDemo.Models;
 
 namespace MVCDemo.Controllers
@@ -15,19 +14,46 @@ namespace MVCDemo.Controllers
         public ActionResult Index()
         {
             var context = new DemoContext();
-            
+
             var person = new Person
             {
-                Firstname = "Ion",
-                Lastname = "Petrescu",
-                Address = new Address
+                BasicInfo = new BasicInfo
                 {
-                    StreeAddress = "Calea Sagului",
-                    HouseNumber = 24,
-                    AppartmentNumber = 32,
-                    Type = AddressType.Permanent
-                }
+                    FirstName = "Ion",
+                    LastName = "Gheorghe",
+                    Title = Title.Mr,
+                    Birthday = DateTime.Now
+                },
+                ProfessionalInfo = new ProfessionalInfo
+                {
+                    CurrentJobTitle = "Dev",
+                    ExpectedSalary = new Range { Min = 2000, Max = 3000 },
+                    CurrentSalary = 2000,
+                    
+                },
+                ContactInfo = new ContactInfo
+                {
+                    Addresses = new List<Address>
+                    {
+                        new Address
+                        {
+                            City  = "Timisoara",
+                            StreetAddress = "Gheorghe Lazar 45/12"
+                        },
+
+                        new Address
+                        {
+                            City = "Timisoara",
+                            StreetAddress = "Circumvalatiunii 87",
+                            Country = "Romania"
+                        }
+                    },
+                },
+                Auth = new Authentication(),
+                CandidateStatus = Status.PreScreening
             };
+
+
             context.Person.Add(person);
             context.SaveChanges();
 

@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Models
+namespace MVCDemo.Models
 {
-    public enum AddressType
+    public enum Title
     {
-        Permanent,
-        Temporal,
-        Work
+        Ms = 1,
+        Mrs = 2,
+        Mr = 3
     }
 }

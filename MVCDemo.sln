@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVCDemo", "MVCDemo\MVCDemo.csproj", "{2698F1D7-EED4-4AA4-96E6-614FF0134D61}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVCDemo.Web", "MVCDemo\MVCDemo.Web.csproj", "{2698F1D7-EED4-4AA4-96E6-614FF0134D61}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVCDemo.Models", "Models\MVCDemo.Models.csproj", "{D999B69F-E4C5-4227-A104-A8D6FA0EF502}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Database", "Database\Database.csproj", "{80E5C0FA-0813-496F-AA40-146AECA5DBC4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MVCDemo.Database", "Database\MVCDemo.Database.csproj", "{80E5C0FA-0813-496F-AA40-146AECA5DBC4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

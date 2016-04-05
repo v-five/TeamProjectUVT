@@ -174,9 +174,9 @@
     <Folder Include="App_Data\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Database\Database.csproj">
+    <ProjectReference Include="..\Database\MVCDemo.Database.csproj">
       <Project>{80e5c0fa-0813-496f-aa40-146aeca5dbc4}</Project>
-      <Name>Database</Name>
+      <Name>MVCDemo.Database</Name>
     </ProjectReference>
     <ProjectReference Include="..\Models\MVCDemo.Models.csproj">
       <Project>{d999b69f-e4c5-4227-a104-a8d6fa0ef502}</Project>
