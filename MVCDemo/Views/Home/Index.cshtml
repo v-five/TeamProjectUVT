@@ -4,16 +4,52 @@
 }
 
 @section Buttons{
-    <button class="button">Register</button>
-    <button class="button" onclick="OpenLogInPopUp()">Log In</button> 
+    <div class="main-page-buttons">
+        <button class="main-page-button">Register</button>
+        <button id="modal_trigger" href="#modal" class="main-page-button">Log In</button> 
+    </div>
+
 }
 
-<script>
-    function OpenLogInPopUp()
-    {
-        alert("I am an alert box!");
-    }
-</script>
+@section Modal{
+    <div id="modal" class="popupContainer" style="display:none;">
+    <header class="popupHeader">
+        <span class="header_title">Login</span>
+        <span class="modal_close"><i class="fa fa-times"></i></span>
+    </header>
 
-<h1>Short description</h1>
+    <section class="popupBody">
+        <div class="user_login">
+            <form>
+                <label>Username</label> <input id="username" type="text"><br>
+                <label>Password</label> <input id="password" type="password"><br>
+                <div class="action_btns">
+                    <div class="one_half">
+                        <button class="btn clear">Clear</button>
+                    </div>
+                    <div class="one_half last">
+                        <button class="btn btn_red">Login</button>
+                    </div>
+                </div>
+            </form>
+            <a class="forgot_password" href="#">Forgot password?</a>
+            <div class="forgot_password_section">
+                <form>
+                    <label>Email</label> <input id="email" type="text"><br>
+                    <div class="action_btns">
+                        <div class="forgot_password_button">
+                            <button class="btn btn_red">Reset</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
 
+    </section>
+</div>
+
+<script type="text/javascript" src="~/Scripts/jQuery/jquery.leanModal.min.js"></script>
+<script type="text/javascript" src="~/Scripts/modal.js"></script>    
+}
+
+<h1> Main Page </h1>
