@@ -3,5 +3,17 @@
     ViewBag.Title = "Home Page";
 }
 
+@section Buttons{
+    <button class="button">Register</button>
+    <button class="button" onclick="OpenLogInPopUp()">Log In</button> 
+}
+
+<script>
+    function OpenLogInPopUp()
+    {
+        alert("I am an alert box!");
+    }
+</script>
+
 <h1>Short description</h1>
 
