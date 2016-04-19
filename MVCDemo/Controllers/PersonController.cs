@@ -13,7 +13,7 @@ namespace MVCDemo.Controllers
         public ActionResult Person(int id)
         {
             var context = new DemoContext();
-            var person = context.Person.Single(p => p.Id == id);
+            var person = context.Person.Include("BasicInfo").Include("ContactInfo").Single(p => p.Id == id);
             
             return View(person);
         }

@@ -16,3 +16,14 @@ textarea {
     max-width: 280px;
 }
 
+labels{
+	text-align:right;
+	padding-top:10px;
+	padding-bottom:10px;
+}
+h2{
+	color:grey;
+}
+table{
+	padding-left:20px;
+}

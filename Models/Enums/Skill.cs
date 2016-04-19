@@ -8,5 +8,7 @@ namespace MVCDemo.Models
     public enum Skill
     {
         //TO BE ADDED!!! (DE INTREBAT MARTI)
+        pictor = 0,
+        danseazaBine = 1
     }
 }
