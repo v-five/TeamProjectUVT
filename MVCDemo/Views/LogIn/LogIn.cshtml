@@ -1,0 +1,33 @@
+﻿@{
+    Layout = "~/Views/Shared/_PopUpLayout.cshtml";
+}
+
+@{
+    ViewBag.Title = "Log In";
+}
+
+<div id="modal" class="popupContainer" style="display:none;">
+    <header class="popupHeader">
+        <span class="header_title">Login</span>
+        <span class="modal_close"><i class="fa fa-times"></i></span>
+     </header>
+
+     <section class="popupBody">
+         <div class="user_login">
+             <form>
+                 <label>Email/Username</label> <input type="text"><br>
+                 <label>Password</label> <input type="password"><br>
+                 <div class="action_btns">
+                     <div class="one_half">
+                         <button class="btn back_btn">Back</button>
+                     </div>
+                     <div class="one_half last">
+                         <button class="btn btn_red">Login</button>
+                     </div>
+                 </div>
+             </form>
+             <a class="forgot_password" href="#">Forgot password?</a>
+         </div>
+     </section>
+</div>
+
