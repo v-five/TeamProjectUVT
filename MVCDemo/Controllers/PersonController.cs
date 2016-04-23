@@ -10,12 +10,12 @@ namespace MVCDemo.Controllers
 {
     public class PersonController : Controller
     {
-        public ActionResult Person(int id)
+        public ActionResult Person(/*int id*/)
         {
-            var context = new DemoContext();
-            var person = context.Person.Include("BasicInfo").Include("ContactInfo").Single(p => p.Id == id);
+            /*var context = new DemoContext();
+            var person = context.Person.Single(p => p.Id == id);*/
             
-            return View(person);
+            return View(/*person*/);
         }
     }
 }

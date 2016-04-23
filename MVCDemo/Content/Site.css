@@ -123,9 +123,9 @@ a.btn_red {
 		right: 0;
 		top: 0;
 		padding: 10px 15px;
-		background: #E4E4E2;
+		background: #ED6347;
 		cursor: pointer;
-		color: #aaa;
+		color: #fff;
 		font-size: 16px;
 }
 
@@ -243,3 +243,36 @@ a.btn_red {
 .forgot_password_button{
     float: right;
 }
+
+/* Register Page */
+.register h2{
+    text-align: center;
+}
+.register-table{
+    display:table;
+    border-spacing: 10px;
+}
+
+.register .table-row{
+    display:table-row;
+}
+
+.register .table-cell{
+    display:table-cell;
+}
+
+.table-row > label, .table-row > input, .table-row > select{
+    vertical-align: middle;
+    display:table-cell;
+}
+
+.table-row > input[type="date"]{
+    min-width: 175px;
+}
+
+.table-row > textarea{
+    resize: none;
+    width: 175px;
+    height: 70px;
+}
+
