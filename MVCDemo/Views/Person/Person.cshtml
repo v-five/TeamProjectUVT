@@ -5,6 +5,8 @@
 }
 
     <div class="person">
+        @if (Model.BasicInfo != null)
+        {
         <h2>Basic Info</h2>
         <hr />
         <table>
@@ -23,77 +25,114 @@
             </tr>
             <tr>
                 <td class="labels">Last Name: </td>
-                <td>@Model.BasicInfo?.LastName</td>
+                <td>@Model.BasicInfo.LastName</td>
             </tr>
             <tr>
-                <td class="labels">Email: </td>
+                <td class="labels">Birthday: </td>
                 <td>@Model.BasicInfo.Birthday.ToShortDateString()</td>
             </tr>
         </table>
+        }
+           @if (Model.ProfessionalInfo != null)
+           {
         <h2>Professional Details</h2>
         <hr />
         <table>
             <tr>
                 <td class="labels">Experience In Years: </td>
-                <td>@Model.ProfessionalInfo?.YearsOfExperience</td>
+                <td>@Model.ProfessionalInfo.YearsOfExperience</td>
             </tr>
             <tr>
                 <td class="labels">Current job Title: </td>
-                <td>@Model.ProfessionalInfo?.CurrentJobTitle</td>
+                <td>@Model.ProfessionalInfo.CurrentJobTitle</td>
             </tr>
             <tr>
                 <td class="labels">Expected Salary: </td>
-                <td>@Model.ProfessionalInfo?.ExpectedSalary</td>
+                <td>@Model.ProfessionalInfo.ExpectedSalary</td>
             </tr>
-            <tr>
-                <td class="labels">Skill Set: </td>
-                <td>@Model.ProfessionalInfo?.Skills</td>
-            </tr>
+            @if (Model.ProfessionalInfo.Skills != null)
+            {
+                foreach (var skill in Model.ProfessionalInfo.Skills)
+                {
+                    <tr>
+                        <td class="labels">Skill: </td>
+                        <td>@skill</td>
+                        
+                    </tr>
+                }
+            }
             <tr>
                 <td class="labels">Highest Qualificaton Held: </td>
-                <td>@Model.ProfessionalInfo?.LastDegreeEarned</td>
+                <td>@Model.ProfessionalInfo.LastDegreeEarned</td>
             </tr>
             <tr>
                 <td class="labels">Current Salary: </td>
-                <td>@Model.ProfessionalInfo?.CurrentSalary</td>
+                <td>@Model.ProfessionalInfo.CurrentSalary</td>
             </tr>
         </table>
+           }
+        @if (Model.ContactInfo != null)
+        { 
         <h2>Contact Information</h2>
         <hr />
         <table>
             <tr>
                 <td class="labels">Email: </td>
-                <td>@Model.ContactInfo?.Email</td>
+                <td>@Model.ContactInfo.Email</td>
             </tr>
-            <tr>
-                <td class="labels">Phone Numbers: </td>
-                <td>@Model.ContactInfo?.PhoneNumbers</td>
-            </tr>
-            <tr>
-                <td class="labels">Fax: </td>
-                <td>@Model.ContactInfo?.Fax</td>
-            </tr>
-            <tr>
-                <td class="labels">Website: </td>
-                <td>@Model.ContactInfo?.Website</td>
-            </tr>
-        </table>
-        <h2>Address Information</h2>
-        <hr />
-        <table>
-            @if (Model.ContactInfo != null && Model.ContactInfo.Addresses != null)
+            @if (Model.ContactInfo.PhoneNumbers != null)
             {
-                foreach (var address in Model.ContactInfo.Addresses)
+                foreach (var nr in Model.ContactInfo.PhoneNumbers)
                 {
                     <tr>
-                        <td class="labels">Country: </td>
-                        <td>@address.City</td>
-                        <td>@address.Country</td>
+                        <td class="labels">Phone Number: </td>
+                        <td>@nr</td>
+
                     </tr>
                 }
             }
+            <tr>
+                <td class="labels">Fax: </td>
+                <td>@Model.ContactInfo.Fax</td>
+            </tr>
+            <tr>
+                <td class="labels">Website: </td>
+                <td>@Model.ContactInfo.Website</td>
+            </tr>
+            @if (Model.ContactInfo.SocialWebSites != null)
+            {
+                foreach (var site in Model.ContactInfo.SocialWebSites)
+                {
+                    <tr>
+                        <td class="labels">Link: </td>
+                        <td>@site.Link</td>
+                        <td class="labels">Type: </td>
+                        <td>@site.Type</td>
+                      
+                    </tr>
+                }
+            }
+        </table>
+        }
+        @if (Model.ContactInfo.Addresses != null)
+        { 
+        <h2>Address Information</h2>
+        <hr />
+        <table>
+                @foreach (var address in Model.ContactInfo.Addresses)
+                {
+                    <tr>
+                        <td class="labels">Country: </td>
+                        <td>@address.Country</td>
+                        <td class="labels">City: </td>
+                        <td>@address.City</td>
+                        <td class="labels">Street: </td>
+                        <td>@address.StreetAddress</td>
+                    </tr>
+                }
             
         </table>
+        }
         
 
     </div>
