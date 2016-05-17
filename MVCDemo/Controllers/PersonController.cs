@@ -17,5 +17,37 @@ namespace MVCDemo.Controllers
             
             return View(person);
         }
+
+
+
+        public string DeletePerson(int id)
+        {
+            var context = new DemoContext();
+
+            var itemToDelete = context.Person.Find(id);
+            bool itemToDeleteExists = context.Person.Any(person => person.Id.Equals(itemToDelete.Id));
+
+            if (itemToDeleteExists)
+            {
+                itemToDelete.IsDeleted = true;
+                context.SaveChanges();
+                string message = "204";
+                return message;
+
+            }
+            else
+            {
+
+                string message = "404";
+                return message;
+            }
+
+
+
+
+
+
+
+        }
     }
 }

@@ -13,5 +13,6 @@ namespace MVCDemo.Models
         public ContactInfo ContactInfo { get; set; }
         public Authentication Auth { get; set; }
         public ProfessionalInfo ProfessionalInfo { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }
