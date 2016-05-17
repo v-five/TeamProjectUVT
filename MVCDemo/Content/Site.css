@@ -20,6 +20,7 @@ labels{
 	text-align:right;
 	padding-top:10px;
 	padding-bottom:10px;
+    display:block;
 }
 h2{
 	color:grey;
