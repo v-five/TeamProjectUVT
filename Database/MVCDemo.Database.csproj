@@ -66,6 +66,10 @@
     <Compile Include="Migrations\201605170755405_Dani.Designer.cs">
       <DependentUpon>201605170755405_Dani.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605240709217_Merge.cs" />
+    <Compile Include="Migrations\201605240709217_Merge.Designer.cs">
+      <DependentUpon>201605240709217_Merge.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -91,6 +95,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201605170755405_Dani.resx">
       <DependentUpon>201605170755405_Dani.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605240709217_Merge.resx">
+      <DependentUpon>201605240709217_Merge.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,0 +1,155 @@
+﻿@model MVCDemo.Models.Person
+@{
+    ViewBag.Title = "Register";
+}
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+@if (Model == null)
+{
+    <p>Person not found.</p>
+}
+else
+{
+    <form action="/" method="post">
+        <div class="register container">
+            <div class="row">
+                <div class="bsc-info col-lg-4">
+                    <h2>Basic info</h2>
+                    <hr>
+                    <div class="register-table">
+                        <div class="table-row">
+                            <label>Title: </label>
+                            <select>
+                                <option value="None">-None-</option>
+                                <option value="Mr.">Mr.</option>
+                                <option value="Mrs.">Mrs.</option>
+                                <option value="Ms.">Ms.</option>
+                            </select>
+                        </div>
+
+                        <div class="table-row">
+                            <label>First name: </label>
+                            <input type="text">
+                        </div>
+
+                        <div class="table-row">
+                            <label>Last name: </label>
+                            <input type="text"><br>
+                        </div>
+
+                        <div class="table-row">
+                            <label>Birthday: </label>
+                            <input type="date">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cnct-inf col-lg-4">
+                    <h2>Contact info</h2>
+                    <hr>
+                    <div class="register-table">
+                        <div class="table-row">
+                            <label>Email: </label>
+                            <input type="email">
+                        </div>
+                        <div class="table-row">
+                            <label>Fax: </label>
+                            <input type="text">
+                        </div>
+                        <div class="table-row">
+                            <label>Website: </label>
+                            <input type="text">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="address col-lg-4">
+                    <h2>Address</h2>
+                    <hr>
+                    <div class="register-table">
+                        <div class="table-row">
+                            <label>Country: </label>
+                            <input type="text">
+                        </div>
+                        <div class="table-row">
+                            <label>County: </label>
+                            <input type="text">
+                        </div>
+                        <div class="table-row">
+                            <label>City: </label>
+                            <input type="text">
+                        </div>
+                        <div class="table-row">
+                            <label>Street: </label>
+                            <textarea type="text"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="prof-info col-lg-8">
+                    <h2>Professional Info</h2>
+                    <hr>
+                    <div class="register-table">
+                        <div class="table-row">
+                            <label>Last degree earned: </label>
+                            <input type="text">
+                        </div>
+                        <div class="table-row">
+                            <label>Years of experience: </label>
+                            <input type="number">
+                        </div>
+                        <div class="table-row">
+                            <label>Expected salary: </label>
+                            <div id="slider-range"></div>
+                            <!--<div data-role="rangeslider" data-track-theme="a" data-theme="b" class="ui-rangeslider">
+                                <input name="range-3a" id="range-3a" min="0" max="100" value="0" type="range" />
+                            </div>-->
+                        
+                            <!--<input type="text">
+                            <input type="text">-->
+                        </div>
+                        <div class="table-row">
+                            <label>Current salary: </label>
+                            <input type="number">
+                        </div>
+                        <div class="table-row">
+                            <label>Current job title: </label>
+                            <input type="text">
+                        </div>
+                        <div class="table-row">
+                            <label>Skills </label>
+                            <input type="text" placeholder="To be added">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+}
+<script>
+    $(document).ready(function () {
+        $(".bsc-info select").on("click", function () {
+            if ($($(".bsc-info option")[0]).val() == "None") {
+                $($(".bsc-info option")[0]).hide();
+            }
+        });
+    });
+</script>
+<script>
+  $(function() {
+    $( "#slider-range" ).slider({
+      range: true,
+      min: 0,
+      max: 500,
+      values: [ 75, 300 ],
+      slide: function( event, ui ) {
+        $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+      }
+    });
+    $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
+      " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+  });
+</script>

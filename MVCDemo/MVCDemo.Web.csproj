@@ -152,7 +152,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ConvertToJsonController.cs" />
     <Compile Include="Controllers\LogInController.cs" />
-    <Compile Include="Controllers\PersonController.cs" />
+    <Compile Include="Controllers\PeopleController.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -174,8 +174,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <Content Include="scripts\jQuery\jquery-1.10.2.min.map" />
     <Content Include="Views\Authentication\Index.cshtml" />
-    <Content Include="Views\Person\Index.cshtml" />
-    <Content Include="Views\Person\Person.cshtml" />
+    <Content Include="Views\People\Person.cshtml" />
+    <Content Include="Views\People\EditPerson.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -185,15 +185,19 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Sections\" />
-    <Folder Include="Views\Shared\" />
     <Folder Include="Views\API\" />
     <Folder Include="Views\ConvertToJson\" />
+    <Folder Include="Views\Sections\" />
+    <Folder Include="Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Database\MVCDemo.Database.csproj">
       <Project>{80e5c0fa-0813-496f-aa40-146aeca5dbc4}</Project>
       <Name>MVCDemo.Database</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Membership\Membership.csproj">
+      <Project>{f36823c5-3487-43c8-b354-74800063041a}</Project>
+      <Name>Membership</Name>
     </ProjectReference>
     <ProjectReference Include="..\Models\MVCDemo.Models.csproj">
       <Project>{d999b69f-e4c5-4227-a104-a8d6fa0ef502}</Project>
