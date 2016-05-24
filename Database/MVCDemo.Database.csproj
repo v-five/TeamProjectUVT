@@ -62,6 +62,10 @@
     <Compile Include="Migrations\201604260738574_Ggg.Designer.cs">
       <DependentUpon>201604260738574_Ggg.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201605170755405_Dani.cs" />
+    <Compile Include="Migrations\201605170755405_Dani.Designer.cs">
+      <DependentUpon>201605170755405_Dani.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -84,6 +88,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201604260738574_Ggg.resx">
       <DependentUpon>201604260738574_Ggg.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201605170755405_Dani.resx">
+      <DependentUpon>201605170755405_Dani.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
