@@ -1,55 +1,75 @@
-﻿
-@{
+﻿@{
     ViewBag.Title = "Home Page";
 }
 
 @section Buttons{
     <div class="main-page-buttons">
-        <button class="main-page-button">Register</button>
-        <button id="modal_trigger" href="#modal" class="main-page-button">Log In</button> 
+        <button class="main-page-button user_trigger"  href="#modal">Register</button>
+        <button class="main-page-button user_trigger"  href="#modal">Login</button> 
     </div>
 
 }
 
-@section Modal{
+@section Modal
+    {
     <div id="modal" class="popupContainer" style="display:none;">
-    <header class="popupHeader">
-        <span class="header_title">Login</span>
-        <span class="modal_close">X</span>
-    </header>
+        <header class="popupHeader">
+            <div id="tabs">
+                <div id="loginHeader" class="header_title">Login</div>
+                <div id="registerHeader" class="header_title">Register</div>
+            </div>
+            <span class="modal_close">X</span>
+        </header>
 
-    <section class="popupBody">
-        <div class="user_login">
-            <form>
-                <label>Username</label> <input id="username" type="text"><br>
-                <label>Password</label> <input id="password" type="password"><br>
-                <div class="action_btns">
-                    <div class="one_half">
-                        <button class="btn clear">Clear</button>
-                    </div>
-                    <div class="one_half last">
-                        <button class="btn btn_red">Login</button>
-                    </div>
-                </div>
-            </form>
-            <a class="forgot_password" href="#">Forgot password?</a>
-            <div class="forgot_password_section">
-                <form>
-                    <label>Email</label> <input id="email" type="text"><br>
+        <section class="popupBody">
+            <div class="content-wrapper login">
+                <form method="post">
+                    <label>Username</label> <input id="username" type="text"><br>
+                    <label>Password</label> <input id="password" type="password"><br>
                     <div class="action_btns">
-                        <div class="forgot_password_button">
-                            <button class="btn btn_red">Reset</button>
+                        <div class="one_half">
+                            <button class="btn btn_red">Login</button>
+                        </div>
+                        <div class="one_half last">
+                            <button class="btn clear">Clear</button>
+                        </div>
+                    </div>
+                </form>
+                <a class="forgot_password" href="#">Forgot password?</a>
+                <div class="forgot_password_section">
+                    <form>
+                        <label>Email</label> <input id="email" type="text"><br>
+                        <div class="action_btns">
+                            <div class="forgot_password_button">
+                                <button class="btn btn_red">Reset</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div class="content-wrapper register">
+                <form method="post" action="/Authentication/Register">
+                    <label>Email</label> <input id="emailUser" type="email"><br>
+                    <label>Password</label> <input id="passwordUser" type="password"><br>
+                    <label>Re-enter password</label> <input id="confirmPassword" type="password"><br>
+                    <div class="action_btns">
+                        <div class="one_half">
+                            <button class="register_page btn btn_red">Create</button>
+                        </div>
+                        <div class="one_half last">
+                            <button class="btn clear">Clear</button>
                         </div>
                     </div>
                 </form>
             </div>
-        </div>
 
-    </section>
-</div>
-
-<script type="text/javascript" src="~/Scripts/jQuery/jquery.leanModal.min.js"></script>
-<script type="text/javascript" src="~/Scripts/modal.js"></script>    
+        </section>
+    </div>
 }
 
 <h1> Main Page </h1>
+
+<script type="text/javascript" src="~/Scripts/jQuery/jquery.leanModal.min.js"></script>
+<script type="text/javascript" src="~/Scripts/modal.js"></script>
+

@@ -58,6 +58,10 @@
     <Compile Include="Migrations\201604050752252_UpdatedPersonModel.Designer.cs">
       <DependentUpon>201604050752252_UpdatedPersonModel.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201604260738574_Ggg.cs" />
+    <Compile Include="Migrations\201604260738574_Ggg.Designer.cs">
+      <DependentUpon>201604260738574_Ggg.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -77,6 +81,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201604050752252_UpdatedPersonModel.resx">
       <DependentUpon>201604050752252_UpdatedPersonModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201604260738574_Ggg.resx">
+      <DependentUpon>201604260738574_Ggg.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

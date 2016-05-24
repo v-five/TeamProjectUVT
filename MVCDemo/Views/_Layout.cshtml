@@ -11,24 +11,23 @@
     <script src="~/Scripts/jQuery/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/bootstrap/bootstrap.min.js"></script>
 </head>
+
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
                 @Html.ActionLink("RecruitmentApp", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
-            @RenderSection("Buttons", false) 
-                
+            @RenderSection("Buttons", false)      
         </div>
     </div>
 
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        
+        <hr /> 
     </div>
 
-    @RenderSection("modal", false)
+    @RenderSection("Modal", false)
     
     <div class="panel-footer navbar-fixed-bottom">
         <div class="container">

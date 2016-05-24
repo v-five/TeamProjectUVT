@@ -105,15 +105,34 @@ a.btn_red {
 }
 /* Popup Styles*/
 
-.popupHeader {
-		font-size: 16px;
-		text-transform: uppercase;
+#lean_overlay{
+    z-index:9999;
+}
+.header_title{
+    display:inline-block;
+    width: 49%;
+    text-align: center;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.header_title.active {
+    background-color: #d0d0d0;
+}
+
+.content-wrapper.active{
+    display:block;
+}
+
+#tabs {
+    max-width: calc(100% - 40px);
 }
 
 .popupHeader {
+        font-size: 16px;
+		text-transform: uppercase;
 		background: #F4F4F2;
 		position: relative;
-		padding: 10px 20px;
 		border-bottom: 1px solid #DDD;
 		font-weight: bold;
 }
@@ -193,18 +212,22 @@ a.btn_red {
 }
 /* User Login Form */
 
-.user_login {
-		display: block;
+#tabs{
+   
 }
 
-.user_login label {
+.content-wrapper {
+		display: none;
+}
+
+.content-wrapper label {
 		display: block;
 		margin-bottom: 5px;
 }
 
-.user_login input[type="text"],
-.user_login input[type="email"],
-.user_login input[type="password"] {
+.content-wrapper input[type="text"],
+.content-wrapper input[type="email"],
+.content-wrapper input[type="password"] {
 		display: block;
 		width: 100%;
 		padding: 10px;
@@ -212,16 +235,16 @@ a.btn_red {
 		color: #666;
 }
 
-.user_login input[type="checkbox"] {
+.content-wrapper input[type="checkbox"] {
 		float: left;
 		margin-right: 5px;
 }
 
-.user_login input[type="checkbox"]+label {
+.content-wrapper input[type="checkbox"]+label {
 		float: left;
 }
 
-.user_login .checkbox {
+.content-wrapper .checkbox {
 		margin-bottom: 10px;
 		clear: both;
 		overflow: hidden;
