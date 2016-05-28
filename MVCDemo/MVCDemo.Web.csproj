@@ -176,6 +176,7 @@
     <Content Include="Views\Authentication\Index.cshtml" />
     <Content Include="Views\People\Person.cshtml" />
     <Content Include="Views\People\EditPerson.cshtml" />
+    <Content Include="Views\People\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

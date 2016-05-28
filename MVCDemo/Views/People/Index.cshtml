@@ -1,0 +1,163 @@
+﻿@using MVCDemo.Models
+@model IEnumerable<Person>
+
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<divstyle ="font-family:'Times New Roman'">
+    </div>
+    <h2>Candidate List</h2>
+    <h2>Basic Information</h2>
+    <hr>
+    <tablecellpadding ="5">
+        <tr>
+            <th>
+                <b>Id</b>
+            </th>
+            <th>
+                <b>Title</b>
+            </th>
+            <th>
+                <b>First Name</b>
+            </th>
+            <th>
+                <b> Last Name</b>
+            </th>
+            <th>
+                <b>Birthday</b>
+            </th>
+            <th>
+                <b>Address</b>
+            </th>
+            <th>
+                <b>Website</b>
+            <th>
+                <b>Email</b>
+            </th>
+            <th>
+                <b>Phone Number</b>
+            </th>
+        </tr>
+        @foreach (var person in Model)
+        {
+            <tr>
+                <td>
+                    @person.BasicInfo.Id
+                </td>
+                <td>
+                    @person.BasicInfo.Title
+                </td>
+                <td>
+                    @person.BasicInfo.FirstName
+                </td>
+                <td>
+                    @person.BasicInfo.LastName
+                </td>
+                <td>
+                    @person.BasicInfo.Birthday.ToShortDateString()
+                </td>
+                @if (person.ContactInfo.Addresses != null)
+                {
+                    foreach (var address in person.ContactInfo.Addresses)
+                    {
+                        <td>
+                            @address.Country
+                            @address.County
+                            @address.City
+                            @address.StreetAddress
+                        </td>
+                    }
+                }
+                @if (person.ContactInfo.Website != null)
+                {
+
+                    <td>
+                        @person.ContactInfo.Website
+                    </td>
+
+                }
+                <td>
+                    @person.ContactInfo.Email
+                </td>
+                <td>
+                    @person.ContactInfo.Fax
+                </td>
+            </tr>
+
+        }
+
+        </table>
+        <h2>Professional Information</h2>
+        <tablecellpadding ="5">
+            <th>
+                Id
+            </th>
+            <th>
+                Full Name
+            </th>
+            <th>
+                <p>Last Degree</p>
+                <p>Earned</p>
+            </th>
+            <th>
+                <p>Years of</p>
+                <p>Experience</p>
+            </th>
+            <th>
+                Expected Salary
+            </th>
+            <th>
+                Current Salary
+            </th>
+            <th>
+                Current Job
+            </th>
+            <th>
+                Skills
+            </th>
+            @foreach (var person in Model)
+            {
+                <tr>
+                    <td>
+                        @person.ProfessionalInfo.Id
+                    </td>
+                    <
+                    <td>
+                        @person.BasicInfo.FirstName
+                        @person.BasicInfo.LastName
+
+                    </td>
+                    foreach (var person in Model)
+                    {
+                    <td>
+                        @person.ProfessionalInfo.LastDegreeEarned
+                    </td>
+                    <td>
+                        @person.ProfessionalInfo.YearsOfExperience
+                    </td>
+                    <td>
+                        @person.ProfessionalInfo.ExpectedSalary.Min - @person.ProfessionalInfo.ExpectedSalary.Max
+                    </td>
+                    <td>
+                        @person.ProfessionalInfo.CurrentSalary
+                    </td>
+                    <td>
+                        @person.ProfessionalInfo.CurrentJobTitle
+                    </td>
+                    foreach (var person in Model)
+                    {
+                    <td>
+                        @person.ProfessionalInfo.Skills
+                    </td>
+                    }
+
+                    }
+                </tr>
+
+            }
+
+
+
+

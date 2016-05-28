@@ -2,6 +2,7 @@
 using System.Web.Mvc;
 using Database;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace MVCDemo.Controllers
 {
@@ -9,8 +10,13 @@ namespace MVCDemo.Controllers
     {
         public ActionResult Index()
         {
-            // TODO: view all persons
-            return View();
+            var context = new Database.DemoContext();
+            List<Person> allperson = context.Person
+                .Include("BasicInfo")
+                .Include("ContactInfo")
+                .Include("ProfessionalInfo").ToList();
+        
+            return View(allperson);
         }
 
         public ActionResult Person(int id)
@@ -38,6 +44,7 @@ namespace MVCDemo.Controllers
 
             // TODO: in view sa se populeze datele care exista
             return View(person);
+            return Redirect("People/EditPerson/");
         }
 
         [HttpPost]
