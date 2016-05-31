@@ -7,12 +7,7 @@
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
-@if (Model == null) //Remove if want to go to layout
-{
-    <p>Person not found.</p>
-}
-else
-{
+
     <form action="/" method="post">
         <div class="register container">
             <div class="row">
@@ -22,11 +17,11 @@ else
                     <div class="register-table">
                         <div class="table-row">
                             <label>Title: </label>
-                            <select>
+                            <select id="selectBox" onchange="myChanges(value);">
                                 <option value="None">-None-</option>
-                                <option value="Mr.">Mr.</option>
-                                <option value="Mrs.">Mrs.</option>
-                                <option value="Ms.">Ms.</option>
+                                <option value="Mr">Mr.</option>
+                                <option value="Mrs">Mrs.</option>
+                                <option value="Ms">Ms.</option>
                             </select>
                         </div>
 
@@ -47,7 +42,7 @@ else
                     </div>
                 </div>
 
-                <div class="cnct-inf col-lg-4">
+                <div class="contact-inf col-lg-4">
                     <h2>Contact info</h2>
                     <hr>
                     <div class="register-table">
@@ -85,8 +80,24 @@ else
                         </div>
                         <div class="table-row">
                             <label>Street: </label>
-                            <textarea type="text"></textarea>
+                            <input type="text">
                         </div>
+                        <div class="table-row">
+                            <label>Number: </label>
+                            <input type="text">
+                        </div>
+                        <div class="table-row">
+                            <label>I'm living in a flat </label>
+                            <input type="checkbox" id="if-checked">
+                        </div>
+                        <div class="table-row flat">
+                            <label>Entrance: </label>
+                            <input type="text">
+                        </div>
+                        <div class="table-row flat">
+                            <label>Flat number: </label>
+                            <input type="text">
+                        </div> 
                     </div>
                 </div>
                 <div class="prof-info col-lg-8">
@@ -103,13 +114,11 @@ else
                         </div>
                         <div class="table-row">
                             <label>Expected salary: </label>
+                            <p>
+                                <label for="amount">Price range:</label>
+                                <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+                            </p>
                             <div id="slider-range"></div>
-                            <!--<div data-role="rangeslider" data-track-theme="a" data-theme="b" class="ui-rangeslider">
-                                <input name="range-3a" id="range-3a" min="0" max="100" value="0" type="range" />
-                            </div>-->
-                        
-                            <!--<input type="text">
-                            <input type="text">-->
                         </div>
                         <div class="table-row">
                             <label>Current salary: </label>
@@ -120,31 +129,58 @@ else
                             <input type="text">
                         </div>
                         <div class="table-row">
-                            <label>Skills </label>
+                            <label>Skills:</label>
                             <input type="text" placeholder="To be added">
+                        </div>
+                    </div>
+                </div>
+                <div class="others col-lg-5">
+                    <h2>Others</h2>
+                    <hr>
+                    <div class="register-table">
+                        <div class="table-row">
+                            <label>Upload photo: </label>
+                            <input type="file">
+                        </div>
+                        <div class="table-row">
+                            <label>Upload CV: </label>
+                            <input type="file">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </form>
-}
+@section Save
+    {
+        <button>Save & Go to my profile</button>
+    }
+<!--}-->
 <script>
-    $(document).ready(function () {
-        $(".bsc-info select").on("click", function () {
-            if ($($(".bsc-info option")[0]).val() == "None") {
-                $($(".bsc-info option")[0]).hide();
+    function myChanges($i)
+    {
+        if ($i != "None")
+        {
+            for (var i = 0; i < $(".bsc-info option").length; i++)
+            {
+                if ($($(".bsc-info option")[i]).val() == "None")
+                {
+                    $($(".bsc-info option")[i]).hide();
+                    break;
+                }
             }
-        });
-    });
+        }
+    }
 </script>
+
+<!--Slider-->
 <script>
   $(function() {
     $( "#slider-range" ).slider({
       range: true,
-      min: 0,
-      max: 500,
-      values: [ 75, 300 ],
+      min: 0, //value to be taken -> not hardcoded
+      max: 500,//value to be taken -> not hardcoded
+      values: [0, 500], //min and max
       slide: function( event, ui ) {
         $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
       }
@@ -152,4 +188,22 @@ else
     $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
       " - $" + $( "#slider-range" ).slider( "values", 1 ) );
   });
+</script>
+
+<script>
+    $(function () {
+        var isOpen = false;
+        $(".flat").hide();
+        //flat toggle
+        $("#if-checked").click(function () {
+            if (!isOpen) {
+                $(".flat").show();
+                isOpen = !isOpen;
+            }
+            else {
+                $(".flat").hide();
+                isOpen = !isOpen;
+            }
+        });
+    });
 </script>
