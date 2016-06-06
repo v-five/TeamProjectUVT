@@ -87,16 +87,6 @@ namespace Membership.Providers
                 existingRecord.BasicInfo = person.BasicInfo;
                 existingRecord.ContactInfo = person.ContactInfo;
 
-                var currentId = context.Person.ToList().Count + 1;
-                existingRecord.BasicInfo.Id = currentId;
-                existingRecord.ContactInfo.Id = currentId;
-                var id = currentId;
-                foreach (var address in existingRecord.ContactInfo.Addresses)
-                {
-                    address.Id = currentId;
-                    currentId++;
-                }
-
                 context.SaveChanges();
             }
             catch (Exception ex)
