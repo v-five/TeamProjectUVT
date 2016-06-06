@@ -27,12 +27,16 @@ namespace Membership.Providers
             try
             {
                 var context = new DemoContext();
-                credentials.Password = HashingUtils.Hash(credentials.Password);
 
-                if (context.Person.ToList().Count > 0 && context.Person.Where(x => x.Auth.Username.Equals(credentials.Username) && x.Auth.Password.Equals(credentials.Password)).ToList().Count == 1)
+                if (context.Person.ToList().Count > 0 && context.Person.Where(x => (x.Auth.Username.Equals(credentials.Username) || x.ContactInfo.Email.Equals(credentials.Username))  && x.Auth.Password.Equals(credentials.Password)).ToList().Count == 1)
                 {
                     _authentication.Username = credentials.Username;
                     _authentication.Password = credentials.Password;
+                    HttpContext.Current.Session["Authentication"] = new Authentication
+                    {
+                        Username = credentials.Username,
+                        Password = credentials.Password
+                    };
                 }
                 else
                 {
@@ -50,7 +54,6 @@ namespace Membership.Providers
             try
             {
                 var context = new DemoContext();
-                person.Auth.Password = HashingUtils.Hash(person.Auth.Password);
 
                 var cur = context.Person;
                 if (context.Person.ToList().Count > 0 && context.Person.Where(x => x.Auth.Username.Equals(person.Auth.Username) || x.ContactInfo.Email.Equals(person.ContactInfo.Email)).ToList().Count > 0)
@@ -59,6 +62,41 @@ namespace Membership.Providers
                 }
 
                 context.Person.Add(person);
+                context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public void UpdateUserInformation(Person person)
+        {
+            try
+            {
+                person.Auth = _authentication;
+                person.ContactInfo.Email = _authentication.Username;
+                var context = new DemoContext();
+                var existingRecord = context.Person.SingleOrDefault(x => x.Auth.Username == _authentication.Username);
+                
+                if (context.Person.ToList().Count < 1 || existingRecord == null)
+                {
+                    throw new AuthenticationException();
+                }
+
+                existingRecord.BasicInfo = person.BasicInfo;
+                existingRecord.ContactInfo = person.ContactInfo;
+
+                var currentId = context.Person.ToList().Count + 1;
+                existingRecord.BasicInfo.Id = currentId;
+                existingRecord.ContactInfo.Id = currentId;
+                var id = currentId;
+                foreach (var address in existingRecord.ContactInfo.Addresses)
+                {
+                    address.Id = currentId;
+                    currentId++;
+                }
+
                 context.SaveChanges();
             }
             catch (Exception ex)

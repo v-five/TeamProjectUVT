@@ -13,10 +13,6 @@ namespace MVCDemo.Controllers
         {
              var jsonModel = string.Format(EnumType.Name) ;
              return Json(jsonModel, JsonRequestBehavior.AllowGet);
-             
-
         }
-
-      
     }
 }

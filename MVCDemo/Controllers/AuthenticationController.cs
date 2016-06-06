@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Membership.Providers;
 
 namespace MVCDemo.Controllers
 {
@@ -49,9 +50,15 @@ namespace MVCDemo.Controllers
                 }
             };
 
-            var context = new DemoContext();
-            context.Person.Add(person);
-            context.SaveChanges();
+            var membershipProvider = new MembershipProvider();
+            membershipProvider.PerformRegistration(person);
+
+            var authentication = new Authentication
+            {
+                Username = !string.IsNullOrEmpty(person.Auth.Username) ? person.Auth.Username : person.ContactInfo.Email,
+                Password = person.Auth.Password,
+            };
+            membershipProvider.PerformAuthentication(authentication);
 
             return Redirect("/People/EditPerson/" + person.Id);
         }

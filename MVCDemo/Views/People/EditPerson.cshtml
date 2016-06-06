@@ -13,7 +13,7 @@
 }
 else
 {
-    <form action="/" method="post">
+    <form action="/People/SaveUserInformation" method="post">
         <div class="register container">
             <div class="row">
                 <div class="bsc-info col-lg-4">
@@ -32,17 +32,17 @@ else
 
                         <div class="table-row">
                             <label>First name: </label>
-                            <input type="text">
+                            <input type="text" name="firstName" />
                         </div>
 
                         <div class="table-row">
                             <label>Last name: </label>
-                            <input type="text"><br>
+                            <input type="text" name="lastName" /><br>
                         </div>
 
                         <div class="table-row">
                             <label>Birthday: </label>
-                            <input type="date">
+                            <input type="date" name="birthday" />
                         </div>
                     </div>
                 </div>
@@ -53,15 +53,15 @@ else
                     <div class="register-table">
                         <div class="table-row">
                             <label>Email: </label>
-                            <input type="email">
+                            <input type="email" name="emailAddress" />
                         </div>
                         <div class="table-row">
                             <label>Fax: </label>
-                            <input type="text">
+                            <input type="text" name="fax" />
                         </div>
                         <div class="table-row">
                             <label>Website: </label>
-                            <input type="text">
+                            <input type="text" name="website" />
                         </div>
                     </div>
                 </div>
@@ -73,19 +73,19 @@ else
                     <div class="register-table">
                         <div class="table-row">
                             <label>Country: </label>
-                            <input type="text">
+                            <input type="text" name="country" />
                         </div>
                         <div class="table-row">
                             <label>County: </label>
-                            <input type="text">
+                            <input type="text" name="county" />
                         </div>
                         <div class="table-row">
                             <label>City: </label>
-                            <input type="text">
+                            <input type="text" name="city" />
                         </div>
                         <div class="table-row">
                             <label>Street: </label>
-                            <textarea type="text"></textarea>
+                            <textarea type="text" name="street"></textarea>
                         </div>
                     </div>
                 </div>
@@ -95,11 +95,11 @@ else
                     <div class="register-table">
                         <div class="table-row">
                             <label>Last degree earned: </label>
-                            <input type="text">
+                            <input type="text" name="degree" />
                         </div>
                         <div class="table-row">
                             <label>Years of experience: </label>
-                            <input type="number">
+                            <input type="number" name="yearsOfExperience" />
                         </div>
                         <div class="table-row">
                             <label>Expected salary: </label>
@@ -113,20 +113,22 @@ else
                         </div>
                         <div class="table-row">
                             <label>Current salary: </label>
-                            <input type="number">
+                            <input type="number" name="currentSalary" />
                         </div>
                         <div class="table-row">
                             <label>Current job title: </label>
-                            <input type="text">
+                            <input type="text" name="jobTitle" />
                         </div>
                         <div class="table-row">
                             <label>Skills </label>
-                            <input type="text" placeholder="To be added">
+                            <input type="text" placeholder="To be added" name="skills" />
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <input type="submit" value="Save" />
     </form>
 }
 <script>
