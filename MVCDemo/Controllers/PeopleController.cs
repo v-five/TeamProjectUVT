@@ -12,8 +12,13 @@ namespace MVCDemo.Controllers
     {
         public ActionResult Index()
         {
-            // TODO: view all persons
-            return View();
+            var context = new DemoContext();
+            List<Person> allperson = context.Person
+                .Include("BasicInfo")
+                .Include("ContactInfo")
+                .Include("ProfessionalInfo").ToList();
+
+            return View(allperson);
         }
 
         public ActionResult Person(int id)

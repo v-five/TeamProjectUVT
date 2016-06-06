@@ -22,32 +22,32 @@ else
                     <div class="register-table">
                         <div class="table-row">
                             <label>Title: </label>
-                            <select>
+                            <select id="selectBox" onchange="myChanges(value);" name="title">
                                 <option value="None">-None-</option>
-                                <option value="Mr.">Mr.</option>
-                                <option value="Mrs.">Mrs.</option>
-                                <option value="Ms.">Ms.</option>
+                                <option value="Mr">Mr.</option>
+                                <option value="Mrs">Mrs.</option>
+                                <option value="Ms">Ms.</option>
                             </select>
                         </div>
 
                         <div class="table-row">
                             <label>First name: </label>
-                            <input type="text" name="firstName" />
+                            <input type="text" name="firstName"/>
                         </div>
 
                         <div class="table-row">
                             <label>Last name: </label>
-                            <input type="text" name="lastName" /><br>
+                            <input type="text" name="lastName"/><br>
                         </div>
 
                         <div class="table-row">
                             <label>Birthday: </label>
-                            <input type="date" name="birthday" />
+                            <input type="date" name="birthday"/>
                         </div>
                     </div>
                 </div>
 
-                <div class="cnct-inf col-lg-4">
+                <div class="contact-inf col-lg-4">
                     <h2>Contact info</h2>
                     <hr>
                     <div class="register-table">
@@ -85,7 +85,23 @@ else
                         </div>
                         <div class="table-row">
                             <label>Street: </label>
-                            <textarea type="text" name="street"></textarea>
+                            <input type="text" name="street" />
+                        </div>
+                        <div class="table-row">
+                            <label>Number: </label>
+                            <input type="text" name="number" />
+                        </div>
+                        <div class="table-row">
+                            <label>I'm living in a flat </label>
+                            <input type="checkbox" id="if-checked" name="isFlat"/>
+                        </div>
+                        <div class="table-row flat">
+                            <label>Entrance: </label>
+                            <input type="text" name="entrance"/>
+                        </div>
+                        <div class="table-row flat">
+                            <label>Flat number: </label>
+                            <input type="text" name="flatNumber"/>
                         </div>
                     </div>
                 </div>
@@ -95,33 +111,45 @@ else
                     <div class="register-table">
                         <div class="table-row">
                             <label>Last degree earned: </label>
-                            <input type="text" name="degree" />
+                            <input type="text" name="degree"/>
                         </div>
                         <div class="table-row">
                             <label>Years of experience: </label>
-                            <input type="number" name="yearsOfExperience" />
+                            <input type="number" name="yearsOfExperience"/>
                         </div>
                         <div class="table-row">
                             <label>Expected salary: </label>
+                            <p>
+                                <label for="amount">Price range:</label>
+                                <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;" name="expectedSalary"/>
+                            </p>
                             <div id="slider-range"></div>
-                            <!--<div data-role="rangeslider" data-track-theme="a" data-theme="b" class="ui-rangeslider">
-                                <input name="range-3a" id="range-3a" min="0" max="100" value="0" type="range" />
-                            </div>-->
-                        
-                            <!--<input type="text">
-                            <input type="text">-->
                         </div>
                         <div class="table-row">
                             <label>Current salary: </label>
-                            <input type="number" name="currentSalary" />
+                            <input type="number" name="currentSalary"/>
                         </div>
                         <div class="table-row">
                             <label>Current job title: </label>
-                            <input type="text" name="jobTitle" />
+                            <input type="text" name="jobTitle"/>
                         </div>
                         <div class="table-row">
-                            <label>Skills </label>
-                            <input type="text" placeholder="To be added" name="skills" />
+                            <label>Skills:</label>
+                            <input type="text" placeholder="To be added">
+                        </div>
+                    </div>
+                </div>
+                <div class="others col-lg-5">
+                    <h2>Others</h2>
+                    <hr>
+                    <div class="register-table">
+                        <div class="table-row">
+                            <label>Upload photo: </label>
+                            <input type="file" name="photo">
+                        </div>
+                        <div class="table-row">
+                            <label>Upload CV: </label>
+                            <input type="file" name="cv">
                         </div>
                     </div>
                 </div>
@@ -132,21 +160,30 @@ else
     </form>
 }
 <script>
-    $(document).ready(function () {
-        $(".bsc-info select").on("click", function () {
-            if ($($(".bsc-info option")[0]).val() == "None") {
-                $($(".bsc-info option")[0]).hide();
+    function myChanges($i)
+    {
+        if ($i != "None")
+        {
+            for (var i = 0; i < $(".bsc-info option").length; i++)
+            {
+                if ($($(".bsc-info option")[i]).val() == "None")
+                {
+                    $($(".bsc-info option")[i]).hide();
+                    break;
+                }
             }
-        });
-    });
+        }
+    }
 </script>
+
+<!--Slider-->
 <script>
   $(function() {
     $( "#slider-range" ).slider({
       range: true,
-      min: 0,
-      max: 500,
-      values: [ 75, 300 ],
+      min: 0, //value to be taken -> not hardcoded
+      max: 500,//value to be taken -> not hardcoded
+      values: [0, 500], //min and max
       slide: function( event, ui ) {
         $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
       }
@@ -154,4 +191,22 @@ else
     $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
       " - $" + $( "#slider-range" ).slider( "values", 1 ) );
   });
+</script>
+
+<script>
+    $(function () {
+        var isOpen = false;
+        $(".flat").hide();
+        //flat toggle
+        $("#if-checked").click(function () {
+            if (!isOpen) {
+                $(".flat").show();
+                isOpen = !isOpen;
+            }
+            else {
+                $(".flat").hide();
+                isOpen = !isOpen;
+            }
+        });
+    });
 </script>
