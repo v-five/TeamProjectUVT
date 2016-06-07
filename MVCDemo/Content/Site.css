@@ -267,6 +267,14 @@ a.btn_red {
 .forgot_password_button{
     float: right;
 }
+/*People page*/
+.people-table{
+    display:table;
+    border-spacing: 10px;
+}
+.label-inf{
+    font-weight:normal;
+}
 
 /* Register Page */
 .register h2{

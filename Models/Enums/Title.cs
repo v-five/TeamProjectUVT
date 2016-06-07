@@ -8,8 +8,8 @@ namespace MVCDemo.Models
 {
     public enum Title
     {
-        Ms = 1,
-        Mrs = 2,
-        Mr = 3
+        Ms = 0,
+        Mrs = 1,
+        Mr = 2
     }
 }
