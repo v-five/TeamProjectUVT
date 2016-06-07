@@ -1,5 +1,4 @@
-﻿
-@model MVCDemo.Models.Person
+﻿@model MVCDemo.Models.Person
 @{
     Layout = "~/Views/_Layout.cshtml";
 }
@@ -11,94 +10,131 @@
 else
 {
     <div class="person">
-        <h2>Basic Info</h2>
-        <hr />
-        <table>
-            <tr>
-                <td class="labels">Title: </td>
-                <td>
-                    @{
-                        var title = Model.BasicInfo?.Title != null ? Model.BasicInfo.Title : MVCDemo.Models.Title.Mr;
-                    }
-                    @title
-                </td>
-            </tr>
-            <tr>
-                <td class="labels">First Name: </td>
-                <td>@Model.BasicInfo.FirstName</td>
-            </tr>
-            <tr>
-                <td class="labels">Last Name: </td>
-                <td>@Model.BasicInfo?.LastName</td>
-            </tr>
-            <tr>
-                <td class="labels">Email: </td>
-                <td>@Model.BasicInfo.Birthday.ToShortDateString()</td>
-            </tr>
-        </table>
-        <h2>Professional Details</h2>
-        <hr />
-        <table>
-            <tr>
-                <td class="labels">Experience In Years: </td>
-                <td>@Model.ProfessionalInfo?.YearsOfExperience</td>
-            </tr>
-            <tr>
-                <td class="labels">Current job Title: </td>
-                <td>@Model.ProfessionalInfo?.CurrentJobTitle</td>
-            </tr>
-            <tr>
-                <td class="labels">Expected Salary: </td>
-                <td>@Model.ProfessionalInfo?.ExpectedSalary</td>
-            </tr>
-            <tr>
-                <td class="labels">Skill Set: </td>
-                <td>@Model.ProfessionalInfo?.Skills</td>
-            </tr>
-            <tr>
-                <td class="labels">Highest Qualificaton Held: </td>
-                <td>@Model.ProfessionalInfo?.LastDegreeEarned</td>
-            </tr>
-            <tr>
-                <td class="labels">Current Salary: </td>
-                <td>@Model.ProfessionalInfo?.CurrentSalary</td>
-            </tr>
-        </table>
-        <h2>Contact Information</h2>
-        <hr />
-        <table>
-            <tr>
-                <td class="labels">Email: </td>
-                <td>@Model.ContactInfo?.Email</td>
-            </tr>
-            <tr>
-                <td class="labels">Phone Numbers: </td>
-                <td>@Model.ContactInfo?.PhoneNumbers</td>
-            </tr>
-            <tr>
-                <td class="labels">Fax: </td>
-                <td>@Model.ContactInfo?.Fax</td>
-            </tr>
-            <tr>
-                <td class="labels">Website: </td>
-                <td>@Model.ContactInfo?.Website</td>
-            </tr>
-        </table>
-        <h2>Address Information</h2>
-        <hr />
-        <table>
-            @if (Model.ContactInfo != null && Model.ContactInfo.Addresses != null)
-            {
-                foreach (var address in Model.ContactInfo.Addresses)
-                {
-                    <tr>
-                        <td class="labels">Country: </td>
-                        <td>@address.City</td>
-                        <td>@address.Country</td>
-                    </tr>
-                }
-            }
+        <div class="people-container">
+            <div class="row">
+                <div class="bsc-info col-lg-4">
+                    <h2>Basic Info</h2>
+                    <hr>
+                    <div class="people-table">
+                        <div class="table-row">
+                            <label>Title: </label>
 
-        </table>
+                            @{
+                                var title = Model.BasicInfo.Title != null ? Model.BasicInfo.Title : MVCDemo.Models.Title.Mr;
+                            }
+                            @if ((int)title == 0)
+                            {
+                                <label class="label-inf">Ms</label>
+                            }
+                            else if ((int)title == 1)
+                            {
+                                <label class="label-inf">Mrs</label>
+                            }
+                            else if ((int)title == 2)
+                            {
+                                <label class="label-inf">Mr</label>
+                            }
+
+                        </div>
+                        <div class="table-row">
+                            <label>First Name: </label>
+                            <label class="label-inf">@Model.BasicInfo.FirstName</label>
+                        </div>
+                        <div class="table-row">
+                            <label>Last Name: </label>
+                            <label class="label-inf">@Model.BasicInfo.LastName</label>
+                        </div>
+                        <div class="table-row">
+                            <label>Birthday: </label>
+                            <label class="label-inf">@Model.BasicInfo.Birthday.ToShortDateString()</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-inf col-lg-4">
+                    <h2>Contact Information</h2>
+                    <hr>
+                    <div class="people-table">
+                        <div class="table-row">
+                            <label>Email: </label>
+                            <label class="label-inf">@Model.ContactInfo.Email</label>
+                        </div>
+                        <div class="table-row">
+                            <label>Phone Numbers: </label>
+                            <label class="label-inf">@Model.ContactInfo.PhoneNumbers</label>
+                        </div>
+                        <div class="table-row">
+                            <label>Fax: </label>
+                            <label class="label-inf">@Model.ContactInfo.Fax</label>
+                        </div>
+                        <div class="table-row">
+                            <label>Website: </label>
+                            <label class="label-inf">@Model.ContactInfo.Website</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="address col-lg-4">
+                    <h2>Address Information</h2>
+                    <hr>
+                    <div class="people-table">
+                        <div class="table-row">
+                            @if (Model.ContactInfo != null && Model.ContactInfo.Addresses != null)
+                            {
+                                foreach (var address in Model.ContactInfo.Addresses)
+                                {
+
+                                    <label>Country: </label>
+                                    <label class="label-inf">@address.City</label>
+                                    <label class="label-inf">@address.Country</label>
+
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="prof-info col-lg-8">
+                    <h2>Professional Details</h2>
+                    <hr>
+                    <div class="people-table">
+                        <div class="table-row">
+                            <label>Experience In Years: </label>
+                            <label class="label-inf">@Model.ProfessionalInfo.YearsOfExperience</label>
+                        </div>
+                        <div class="table-row">
+                            <label>Current job Title: </label>
+                            <label class="label-inf">@Model.ProfessionalInfo.CurrentJobTitle</label>
+                        </div>
+                        <div class="table-row">
+                            <label>Expected Salary: </label>
+                            <label class="label-inf">@Model.ProfessionalInfo.ExpectedSalary.Min-@Model.ProfessionalInfo.ExpectedSalary.Max</label>
+                        </div>
+                        <div class="table-row">
+                            <label>Skill Set: </label>
+                            <label class="label-inf">@Model.ProfessionalInfo.Skills</label>
+                        </div>
+                        <div class="table-row">
+                            <label>Highest Qualificaton Held: </label>
+                            <label class="label-inf">@Model.ProfessionalInfo.LastDegreeEarned</label>
+                        </div>
+                        <div class="table-row">
+                            <label>Current Salary: </label>
+                            <label class="label-inf">@Model.ProfessionalInfo.CurrentSalary</label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-}
+
+              
+   
+
+
+
+
+
+
+
+
+                                }
