@@ -35,28 +35,32 @@ namespace MVCDemo.Controllers
   
         }
 
-        public ActionResult Person(int id)
+        public ActionResult Person(int? id)
         {
+            if (!id.HasValue) return View();
+
             var context = new DemoContext();
             var person = context.Person
                 .Include("BasicInfo")
                 .Include("ContactInfo")
                 .Include("ProfessionalInfo")
-                .SingleOrDefault(p => p.Id == id);
+                .SingleOrDefault(p => p.Id == id.Value);
 
             // TODO: in view sa se populeze datele care exista
             return View(person);
         }
         
         [HttpGet]
-        public ActionResult EditPerson(int id)
+        public ActionResult EditPerson(int? id)
         {
+            if (!id.HasValue) return View();
+
             var context = new DemoContext();
             var person = context.Person
                 .Include("BasicInfo")
                 .Include("ContactInfo")
                 .Include("ProfessionalInfo")
-                .SingleOrDefault(p => p.Id == id);
+                .SingleOrDefault(p => p.Id == id.Value);
 
             // TODO: in view sa se populeze datele care exista
             return View(person);
@@ -71,10 +75,15 @@ namespace MVCDemo.Controllers
         }
         
         [HttpDelete]
-        public string DeletePerson(int id)
+        public string DeletePerson(int? id)
         {
+            if (!id.HasValue)
+            {
+                return "No Id Selected";
+            }
+
             var context = new DemoContext();
-            var itemToDelete = context.Person.Find(id);
+            var itemToDelete = context.Person.Find(id.Value);
             if (itemToDelete != null)
             {
                 itemToDelete.IsDeleted = true;
