@@ -55,15 +55,17 @@ namespace MVCDemo.Controllers
         [HttpGet]
         public ActionResult EditPerson(int? id)
         {
-            if (!id.HasValue) return View();
+            try
+            {
+                var membershipProvider = new MembershipProvider();
+                var person = membershipProvider.GetUserInformation();
 
-            var context = new DemoContext();
-            var person = context.Person
-                .Include("BasicInfo")
-                .Include("ContactInfo")
-                .Include("ProfessionalInfo")
-                .SingleOrDefault(p => p.Id == id.Value);
-            return Redirect("People/EditPerson/");
+                return View(person);
+            }
+            catch (Exception ex)
+            { 
+                return View(new Person());
+            }
         }
 
         [HttpPost]

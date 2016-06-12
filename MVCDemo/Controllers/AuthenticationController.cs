@@ -62,5 +62,28 @@ namespace MVCDemo.Controllers
 
             return RedirectToAction("EditPerson", "People");
         }
+
+        [HttpPost]
+        public ActionResult Login(string username, string password)
+        { 
+            var membership = new MembershipProvider();
+
+            var credentials = new Authentication
+            {
+                Username = Request["username"],
+                Password = Request["loginPassword"]
+            };
+
+            try
+            {
+                membership.PerformAuthentication(credentials);
+            }
+            catch (Exception ex)
+            {
+                //TODO: return view with the invalid credentials error
+            }
+
+            return RedirectToAction("EditPerson", "People");
+        }
     }
 }

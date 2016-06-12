@@ -151,7 +151,6 @@
     <Compile Include="Controllers\APIController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ConvertToJsonController.cs" />
-    <Compile Include="Controllers\LogInController.cs" />
     <Compile Include="Controllers\PeopleController.cs" />
     <Compile Include="Controllers\AuthenticationController.cs" />
     <Compile Include="Global.asax.cs">

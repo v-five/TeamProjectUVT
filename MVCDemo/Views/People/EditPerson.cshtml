@@ -1,14 +1,25 @@
-﻿@model MVCDemo.Models.Person
-@{
-    ViewBag.Title = "Register";
-}
+﻿@using Membership.Providers;
+@using MVCDemo.Models;
+@model MVCDemo.Models.Person
 
 <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
+@{
+    var firstName = Model.BasicInfo == null || string.IsNullOrEmpty(Model.BasicInfo.FirstName) ? string.Empty : Model.BasicInfo.FirstName;
+    var lastName = Model.BasicInfo == null || string.IsNullOrEmpty(Model.BasicInfo.LastName) ? string.Empty : Model.BasicInfo.LastName;
+    var birthday = Model.BasicInfo == null || string.IsNullOrEmpty(Model.BasicInfo.Birthday.ToString()) ? string.Empty : Model.BasicInfo.Birthday.ToString();
+    var email = Model.ContactInfo== null || string.IsNullOrEmpty(Model.ContactInfo.Email) ? string.Empty : Model.ContactInfo.Email;
+    var fax = Model.ContactInfo == null || string.IsNullOrEmpty(Model.ContactInfo.Fax) ? string.Empty : Model.ContactInfo.Fax;
+    var website = Model.ContactInfo == null || string.IsNullOrEmpty(Model.ContactInfo.Website) ? string.Empty : Model.ContactInfo.Website;
+    var lastDegree = Model.ProfessionalInfo == null || string.IsNullOrEmpty(Model.ProfessionalInfo.LastDegreeEarned) ? string.Empty : Model.ProfessionalInfo.LastDegreeEarned;
+    var yearsOfExperience = Model.ProfessionalInfo == null || string.IsNullOrEmpty(Model.ProfessionalInfo.YearsOfExperience.ToString()) ? string.Empty : Model.ProfessionalInfo.YearsOfExperience.ToString();
+    var currentSalary = Model.ProfessionalInfo == null || string.IsNullOrEmpty(Model.ProfessionalInfo.CurrentSalary.ToString()) ? string.Empty : Model.ProfessionalInfo.CurrentSalary.ToString();
+    var currentJobTitle = Model.ProfessionalInfo == null || string.IsNullOrEmpty(Model.ProfessionalInfo.CurrentJobTitle) ? string.Empty : Model.ProfessionalInfo.CurrentJobTitle;
+}
 
-    <form action="/People/SaveUserInformation" method="post" runat="server" enctype="multipart/form-data">
+    <form action="/People/SaveUserInformation" method="post" enctype="multipart/form-data">
         <div class="register container">
             <div class="row">
                 <div class="bsc-info col-lg-4">
@@ -27,17 +38,17 @@
 
                         <div class="table-row">
                             <label>First name: </label>
-                            <input type="text" name="firstName"/>
+                            <input type="text" name="firstName" value="@firstName"/>
                         </div>
 
                         <div class="table-row">
                             <label>Last name: </label>
-                            <input type="text" name="lastName"/><br>
+                            <input type="text" name="lastName" value="@lastName"/><br>
                         </div>
 
                         <div class="table-row">
                             <label>Birthday: </label>
-                            <input type="date" name="birthday"/>
+                            <input type="date" name="birthday" />
                         </div>
                     </div>
                 </div>
@@ -48,15 +59,15 @@
                     <div class="register-table">
                         <div class="table-row">
                             <label>Email: </label>
-                            <input type="email" name="emailAddress" />
+                            <input type="email" name="emailAddress" value="@email"/>
                         </div>
                         <div class="table-row">
                             <label>Fax: </label>
-                            <input type="text" name="fax" />
+                            <input type="text" name="fax" value="@fax"/>
                         </div>
                         <div class="table-row">
                             <label>Website: </label>
-                            <input type="text" name="website" />
+                            <input type="text" name="website" value="@website"/>
                         </div>
                     </div>
                 </div>
@@ -68,7 +79,7 @@
                     <div class="register-table">
                         <div class="table-row">
                             <label>Country: </label>
-                            <input type="text" name="country" />
+                            <input type="text" name="country"/>
                         </div>
                         <div class="table-row">
                             <label>County: </label>
@@ -106,11 +117,11 @@
                     <div class="register-table">
                         <div class="table-row">
                             <label>Last degree earned: </label>
-                            <input type="text" name="degree"/>
+                            <input type="text" name="degree" value="@lastDegree"/>
                         </div>
                         <div class="table-row">
                             <label>Years of experience: </label>
-                            <input type="number" name="yearsOfExperience"/>
+                            <input type="number" name="yearsOfExperience" @yearsOfExperience"/>
                         </div>
                         <div class="table-row">
                             <label>Expected salary: </label>
@@ -122,15 +133,15 @@
                         </div>
                         <div class="table-row">
                             <label>Current salary: </label>
-                            <input type="number" name="currentSalary"/>
+                            <input type="number" name="currentSalary" value="@currentSalary"/>
                         </div>
                         <div class="table-row">
                             <label>Current job title: </label>
-                            <input type="text" name="jobTitle"/>
+                            <input type="text" name="jobTitle" value="@currentJobTitle"/>
                         </div>
                         <div class="table-row">
                             <label>Skills:</label>
-                            <input type="text" placeholder="To be added">
+                            <input type="text" placeholder="To be added" >
                         </div>
                     </div>
                 </div>

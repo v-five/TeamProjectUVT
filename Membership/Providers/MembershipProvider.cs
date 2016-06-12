@@ -28,7 +28,7 @@ namespace Membership.Providers
             {
                 var context = new DemoContext();
 
-                if (context.Person.ToList().Count > 0 && context.Person.Where(x => (x.Auth.Username.Equals(credentials.Username) || x.ContactInfo.Email.Equals(credentials.Username))  && x.Auth.Password.Equals(credentials.Password)).ToList().Count == 1)
+                if (context.Person.ToList().Count > 0 && context.Person.Where(x => x.Auth.Username.Equals(credentials.Username)&& x.Auth.Password.Equals(credentials.Password)).ToList().Count > 0)
                 {
                     _authentication.Username = credentials.Username;
                     _authentication.Password = credentials.Password;
@@ -89,6 +89,24 @@ namespace Membership.Providers
                 existingRecord.ContactInfo = person.ContactInfo;
                         
                 context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        public Person GetUserInformation()
+        {
+            try
+            {
+                var context = new DemoContext();
+                if (!IsAuthenticated() || context.Person.Where(x => x.Auth.Username.Equals(_authentication.Username)).ToList().Count < 1)
+                {
+                    throw new AuthenticationException();
+                }
+
+                return context.Person.Single(x => x.Auth.Username.Equals(_authentication.Username));
             }
             catch (Exception ex)
             {

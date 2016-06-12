@@ -23,18 +23,20 @@
 
         <section class="popupBody">
             <div class="content-wrapper login">
-                <form method="post">
-                    <label>Username</label> <input id="username" type="text"><br>
-                    <label>Password</label> <input id="password" type="password"><br>
+                @using (Html.BeginForm("Login", "Authentication", FormMethod.Post,
+                     new { enctype = "multipart/form-data" }))
+                {
+                    <label>Username</label> <input name="username" id="username" type="text"><br>
+                    <label>Password</label> <input name="loginPassword" id="loginPassword" type="password"><br>
                     <div class="action_btns">
                         <div class="one_half">
-                            <button class="btn btn_red">Login</button>
+                            <input type="submit" class="btn btn_red" value="Login">
                         </div>
                         <div class="one_half last">
                             <button class="btn clear">Clear</button>
                         </div>
                     </div>
-                </form>
+                }
                 <a class="forgot_password" href="#">Forgot password?</a>
                 <div class="forgot_password_section">
                     <form>
@@ -49,7 +51,9 @@
             </div>
 
             <div class="content-wrapper register">
-                <form method="post" action="/Authentication/Register">
+                @using (Html.BeginForm("Register", "Authentication", FormMethod.Post,
+                            new { enctype = "multipart/form-data" }))
+                {
                     <label>Email</label> <input name="email" id="emailUser" type="email"><br>
                     <label>Password</label> <input name="password" id="passwordUser" type="password"><br>
                     <label>Re-enter password</label> <input name="confirm-password" id="confirmPassword" type="password"><br>
@@ -61,7 +65,7 @@
                             <button class="btn clear">Clear</button>
                         </div>
                     </div>
-                </form>
+                }
             </div>
 
         </section>
