@@ -87,7 +87,9 @@ namespace Membership.Providers
 
                 existingRecord.BasicInfo = person.BasicInfo;
                 existingRecord.ContactInfo = person.ContactInfo;
-                        
+                context.Person.Attach(existingRecord);
+                context.Entry(existingRecord).State = System.Data.Entity.EntityState.Modified;
+
                 context.SaveChanges();
             }
             catch (Exception ex)
@@ -106,7 +108,10 @@ namespace Membership.Providers
                     throw new AuthenticationException();
                 }
 
-                return context.Person.Single(x => x.Auth.Username.Equals(_authentication.Username));
+                return context.Person.Include("BasicInfo")
+                                        .Include("ContactInfo")
+                                        .Include("ProfessionalInfo")
+                                        .Single(x => x.Auth.Username.Equals(_authentication.Username));
             }
             catch (Exception ex)
             {
