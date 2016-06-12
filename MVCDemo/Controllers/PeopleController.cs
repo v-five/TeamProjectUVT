@@ -4,7 +4,9 @@ using Database;
 using System.Linq;
 using Membership.Providers;
 using System;
+using System.IO;
 using System.Collections.Generic;
+using MVCDemo.Utils;
 
 namespace MVCDemo.Controllers
 {
@@ -98,8 +100,6 @@ namespace MVCDemo.Controllers
         [HttpPost]
         public ActionResult SaveUserInformation()
         {
-            var request = Request.Form;
-
             var person = new Person
             {
                 BasicInfo = new BasicInfo
@@ -111,26 +111,25 @@ namespace MVCDemo.Controllers
                 ContactInfo = new ContactInfo
                 {
                     Addresses = new List<Address>
-                       {
-                           new Address
-                           {
+                        {
+                            new Address
+                            {
                                 City = Request.Form["city"],
                                 County = Request.Form["county"],
                                 Country = Request.Form["country"],
                                 StreetAddress = Request.Form["street"]
-                           }
-                       },
+                            }
+                        },
                     Fax = Request.Form["fax"],
                     PhoneNumbers = new List<string>
-                       {
-                           Request.Form["phoneNumber"]
-                       },
+                        {
+                            Request.Form["phoneNumber"]
+                        },
                     Website = Request.Form["website"]
                 }
             };
-
-            var file = Request.Form["uploadedCV"];
-
+            
+            FileManagementUtils.SaveUploadedCV(person);
             var membershipProvider = new MembershipProvider();
             membershipProvider.UpdateUserInformation(person);
             
