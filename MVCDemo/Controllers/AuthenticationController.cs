@@ -60,7 +60,7 @@ namespace MVCDemo.Controllers
             };
             membershipProvider.PerformAuthentication(authentication);
 
-            return Redirect("/People/EditPerson/" + person.Id);
+            return RedirectToAction("EditPerson", "People");
         }
     }
 }

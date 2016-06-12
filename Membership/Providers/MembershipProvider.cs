@@ -56,8 +56,9 @@ namespace Membership.Providers
                 var context = new DemoContext();
 
                 var cur = context.Person;
-                if (context.Person.ToList().Count > 0 && context.Person.Where(x => x.Auth.Username.Equals(person.Auth.Username) || x.ContactInfo.Email.Equals(person.ContactInfo.Email)).ToList().Count > 0)
-                {
+                if (context.Person.Where(x => x.Auth.Username.Equals(person.Auth.Username)).ToList().Count > 0)
+                {   
+                    var cacat = context.Person.Where(x => x.Auth.Username.Equals(person.Auth.Username)).ToList();
                     throw new AuthenticationException();
                 }
 
@@ -86,7 +87,7 @@ namespace Membership.Providers
 
                 existingRecord.BasicInfo = person.BasicInfo;
                 existingRecord.ContactInfo = person.ContactInfo;
-
+                        
                 context.SaveChanges();
             }
             catch (Exception ex)

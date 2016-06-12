@@ -61,9 +61,6 @@ namespace MVCDemo.Controllers
                 .Include("ContactInfo")
                 .Include("ProfessionalInfo")
                 .SingleOrDefault(p => p.Id == id.Value);
-
-            // TODO: in view sa se populeze datele care exista
-            return View(person);
             return Redirect("People/EditPerson/");
         }
 
@@ -132,9 +129,11 @@ namespace MVCDemo.Controllers
                 }
             };
 
+            var file = Request.Form["uploadedCV"];
+
             var membershipProvider = new MembershipProvider();
             membershipProvider.UpdateUserInformation(person);
-
+            
             return View();
         }
     }
