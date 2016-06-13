@@ -118,7 +118,7 @@ namespace MVCDemo.Controllers
                         Country = Request.Form["country"],
                         StreetName = Request.Form["streetName"],
                         StreetNumber = Request.Form["streetNumber"],
-                        IsFlat = Request.Form["isFlat"].Equals("on") ? true : false,
+                        IsFlat = !string.IsNullOrEmpty(Request.Form["isFlat"]) && Request.Form["isFlat"].Equals("on") ? true : false,
                         Entrance = Request.Form["entrance"],
                         FlatNumber = Request.Form["flatNumber"]    
                     },
