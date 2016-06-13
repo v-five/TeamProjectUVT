@@ -152,8 +152,8 @@
                         </div>
                         <div class="row">
                             <label class="col-lg-2">Skills:</label>
-                            <button class="col-lg-2 btn btn-primary">Add</button>
-                            <input class="col-lg-offset-1 col-lg-7 form-control" type="text" id="skills" list="suggestions">
+                            <button id="add-skill-button" class="col-lg-2 btn btn-primary">Add</button>
+                            <input class="col-lg-offset-1 col-lg-7 form-control" type="text" id="add-skill" list="suggestions">
                             <datalist id="suggestions"> </datalist>
                         </div>
                     </div>
@@ -163,83 +163,11 @@
                         <div class="row">
                             <h3>Skills</h3>
                             <hr>
-                            <div class="skill">
-                                <span class="skill-skill">SKILL</span>
-                                <span class="kill-skill">x</span>
-                            </div>
-                            <div class="skill">
-                                <span class="skill-skill">SKILL</span>
-                                <span class="kill-skill">x</span>
-                            </div>
-                            <div class="skill">
-                                <span class="skill-skill">SKILL</span>
-                                <span class="kill-skill">x</span>
-                            </div>
-                            <div class="skill">
-                                <span class="skill-skill">SKILL</span>
-                                <span class="kill-skill">x</span>
-                            </div>
-                            <div class="skill">
-                                <span class="skill-skill">SKILL</span>
-                                <span class="kill-skill">x</span>
-                            </div>
-                            <div class="skill">
-                                <span class="skill-skill">SKILL</span>
-                                <span class="kill-skill">x</span>
-                            </div>
-                            <div class="skill">
-                                <span class="skill-skill">SKILL</span>
-                                <span class="kill-skill">x</span>
-                            </div>
-                            <div class="skill">
-                                <span class="skill-skill">SKILL</span>
-                                <span class="kill-skill">x</span>
-                            </div>
-                            <div class="skill">
-                                <span class="skill-skill">SKILL</span>
-                                <span class="kill-skill">x</span>
-                            </div>
-                            <div class="skill">
-                                <span class="skill-skill">SKILL</span>
-                                <span class="kill-skill">x</span>
-                            </div>
-                            <div class="skill">
-                                <span class="skill-skill">SKILL</span>
-                                <span class="kill-skill">x</span>
-                            </div>
-                            <div class="skill">
-                                <span class="skill-skill">SKILL</span>
-                                <span class="kill-skill">x</span>
-                            </div>
-                            <div class="skill">
-                                <span class="skill-skill">SKILL</span>
-                                <span class="kill-skill">x</span>
-                            </div>
-                            <div class="skill">
-                                <span class="skill-skill">SKILL</span>
-                                <span class="kill-skill">x</span>
-                            </div>
-                            <div class="skill">
-                                <span class="skill-skill">SKILL</span>
-                                <span class="kill-skill">x</span>
-                            </div>
-                            <div class="skill">
-                                <span class="skill-skill">SKILL</span>
-                                <span class="kill-skill">x</span>
-                            </div>
-                            <div class="skill">
-                                <span class="skill-skill">SKILL</span>
-                                <span class="kill-skill">x</span>
-                            </div>
-                            <div class="skill">
-                                <span class="skill-skill">SKILL</span>
-                                <span class="kill-skill">x</span>
-                            </div>
-                            <div class="skill">
-                                <span class="skill-skill">SKILL</span>
-                                <span class="kill-skill">x</span>
+                            <div id="skill-container">
+
                             </div>
                         </div>
+                        <input name="skills" id="skills" class=""/>
                     </div>
                 </div>
             </div>
@@ -324,6 +252,8 @@
         var addButton = $("#add-more-button");
         addButton.on("click", function (event) {
             event.preventDefault();
+            if (!event.clientX && !event.clientY) return;
+            console.log(event);
             if (numbersShown < 3) {
                 var id = numbersShown + 1;
                 var original = $("#phone-row1");
@@ -351,8 +281,53 @@
 </script>
 <!-- skill behaviour -->
 <script>
+    //to be moved
+    if (!Array.prototype.remove) {
+        Array.prototype.remove = function (item) {
+            var i = this.indexOf(item);
+            if (i == -1) return;
+            this.splice(i, 1);
+        };
+    }
     var root = '@HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority)@Url.Content("~/")';
     var skills;
+    var addedSkills = [];
+    function addSkillToView(skill) {
+        if (!skill) return;
+        var skillHtml = '<div class="skill"><span onclick="removeSkill(' + "'"+ skill + "')" + '" class="skill-skill">' + skill + '</span><span class="kill-skill">x</span></div>';
+        var skillContainer = $("#skill-container");
+        skillContainer.append(skillHtml);
+    };
+
+    function removeSkill(skill) {
+        addedSkills.remove(skill);
+        setSkillsToInput();
+        redrawSkills();
+    }
+    function redrawSkills() {
+        var skillsHtml = "";
+        for (var skill of addedSkills) {
+            skillsHtml += '<div class="skill"><span onclick="removeSkill(' + "'" + skill + "')" + '" class="skill-skill">' + skill + '</span><span class="kill-skill">x</span></div>';
+        }
+        var skillContainer = $("#skill-container");
+        skillContainer.html(skillsHtml);
+    }
+    function setSkillsToInput() {
+        $("#skills").val(addedSkills.toString());
+    }
+    function addSkill(event) {
+        event.preventDefault();
+        if (event.keyCode != 13) return;
+        var skill = $("#add-skill").val();
+        if (!addedSkills.includes(skill)) {
+            if (!skill) return;
+            addedSkills.push(skill);
+            addSkillToView(skill);
+            setSkillsToInput();
+            $("#add-skill").val("");
+        }
+    }
+    //get skills
     $.get(root+"api/skills", function (data) {
         skills = JSON.parse(data);
         var dataList = $("#suggestions");
@@ -362,4 +337,9 @@
         }
         dataList.html(items);
     });
+
+    var addSkillButton = $("#add-skill-button");
+    addSkillButton.on("click", addSkill);
+    var addSkillInput = $("#add-skill");
+    addSkillInput.on("keyup", addSkill);
 </script>
