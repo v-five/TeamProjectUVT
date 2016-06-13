@@ -396,6 +396,11 @@ tbody > tr > td{
 tbody > tr > td.padding-right{
     padding-right: 10px;
 }
+
+thead > tr > th.padding-right{
+    padding-right:10px;
+}
+
 .view-profile, .view-profile:hover, .button-filter-action, .button-filter-action:hover{
     background-color: #3276b1;
     position: relative;
