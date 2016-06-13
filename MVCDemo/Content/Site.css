@@ -365,3 +365,49 @@ a.btn_red {
 .kill-skill:hover {
     display:block;
 }
+
+/*hr view*/
+table{
+    width: 100%;
+    margin-top:50px;
+}
+.search-select, .search-input{
+    width: 100%;
+}
+
+.search {
+    float: right;
+    display: inline-block;
+}
+
+thead{
+    background-color:#428bca;
+    border-bottom:solid;
+}
+
+thead > tr > th{
+    padding:10px 0px 10px 10px;
+}
+
+tbody > tr > td{
+    padding: 10px 0px 10px 10px;
+}
+
+tbody > tr > td.padding-right{
+    padding-right: 10px;
+}
+.view-profile, .view-profile:hover, .button-filter-action, .button-filter-action:hover{
+    background-color: #3276b1;
+    position: relative;
+    padding: 5px;
+    width: 100%;
+}
+
+.text-titles > th{
+    color:#FFF;
+}
+
+.button-filter-action{
+    width:100%;
+}
+

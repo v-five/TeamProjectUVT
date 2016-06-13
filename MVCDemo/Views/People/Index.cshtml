@@ -1,161 +1,230 @@
 ﻿@using MVCDemo.Models
 @model IEnumerable<Person>
 
-
 @{
     ViewBag.Title = "Index";
+    ViewBag.Class = "-fluid";
 }
+<link rel="stylesheet" href="http://yui.yahooapis.com/pure/0.6.0/pure-min.css">
 
-<divstyle ="font-family:'Times New Roman'">
-    </div>
-    <h2>Candidate List</h2>
-    <h2>Basic Information</h2>
-    <hr>
-    <tablecellpadding ="5">
+<h1><ins>Table of candidates</ins></h1>
+
+<table id="table-for-hr" class="pure-table-striped pure-table-horizontal" cellspacing="0">
+    <thead>
         <tr>
             <th>
-                <b>Id</b>
+                <select id="candidate-title" class="search-select" name="title"></select>
             </th>
             <th>
-                <b>Title</b>
+                <input id="candidate-name" class="search-input" type="search" name="name"/>
             </th>
             <th>
-                <b>First Name</b>
+                <select id="candidate-age" class="search-select" name="age"></select>
             </th>
             <th>
-                <b> Last Name</b>
+                <input id="candidate-email" class="search-input" type="search" name="email"/>
             </th>
             <th>
-                <b>Birthday</b>
+                <input id="candidate-phone" class="search-input" type="search" name="phone"/>
             </th>
             <th>
-                <b>Address</b>
+                <select id="candidate-job-title" class="search-select" name="job-title"></select>
             </th>
             <th>
-                <b>Website</b>
-            <th>
-                <b>Email</b>
+                <select id="candidate-experience" class="search-select" name="exp-years"></select>
             </th>
             <th>
-                <b>Phone Number</b>
+                <select id="candidate-skills" class="search-select" name="skills"></select>
+            </th>
+            <th>
+                <select id="candidate-status" class="search-select" name="status"></select>
+            </th>
+            <th>
+                <button class="btn btn-primary button-filter-action">Search</button>
             </th>
         </tr>
+        <tr class="text-titles">
+            <th>Title</th>
+            <th>Name</th>
+            <th>Age</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Current job title</th>
+            <th>Years of experience</th>
+            <th>Skills</th>
+            <th>Candidate status</th>
+            <th>Profile</th>
+        </tr>
+    </thead>
+    <tbody>
         @foreach (var person in Model)
         {
             <tr>
+                <td>@person.BasicInfo.Title</td>
+                <td>@person.BasicInfo.FullName</td>
                 <td>
-                    @person.BasicInfo.Id
+                    @{DateTime now = DateTime.Today;
+                        int age;
+                        if (now.Month >= person.BasicInfo.Birthday.Month)
+                        {
+                            age = now.Year - person.BasicInfo.Birthday.Year;
+                        }
+                        else
+                        {
+                            age = (now.Year - person.BasicInfo.Birthday.Year) - 1;
+                        }
+                    }
+                    @age
                 </td>
-                <td>
-                    @person.BasicInfo.Title
-                </td>
-                <td>
-                    @person.BasicInfo.FirstName
-                </td>
-                <td>
-                    @person.BasicInfo.LastName
-                </td>
-                <td>
-                    @person.BasicInfo.Birthday.ToShortDateString()
-                </td>
-                @if (person.ContactInfo.Address != null)
-                {
-                    <td>
-                        @person.ContactInfo.Address.Country
-                        @person.ContactInfo.Address.County
-                        @person.ContactInfo.Address.City
-                        @person.ContactInfo.Address.StreetName
-                        @person.ContactInfo.Address.StreetNumber
-                    </td>
-                }
-                @if (person.ContactInfo.Website != null)
-                {
-
-                    <td>
-                        @person.ContactInfo.Website
-                    </td>
-
-                }
-                <td>
-                    @person.ContactInfo.Email
-                </td>
-                <td>
-                    @person.ContactInfo.Fax
+                <td>@person.ContactInfo.Email</td>
+                <td>@person.ContactInfo.PhoneNumber1, @person.ContactInfo.PhoneNumber2, @person.ContactInfo.PhoneNumber3</td>
+                <td>@person.ProfessionalInfo.YearsOfExperience</td>
+                <td>@person.ProfessionalInfo.Skills</td>
+                <td>@person.ProfessionalInfo.CurrentJobTitle</td>
+                <td>@person.CandidateStatus</td>
+                <td class="padding-right">
+                    <button class="btn btn-primary view-profile" onclick="">View profile</button>
                 </td>
             </tr>
+        }
+    </tbody>
+</table>
 
+<script>
+
+    function setTitles(value)
+    {
+        var titlesSelect = $("#candidate-title");
+        var root = '@HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority)@Url.Content("~/")';
+        $.get(root+"api/titles", function(data){
+            var titles = JSON.parse(data);
+            var options = "<option>All</option>";
+            for(var i in titles){
+                var selected = i == value ? "selected" : "";
+                options += '<option value="' + i + '" '+selected+'>' + titles[i] + "</option>";
+            }
+            titlesSelect.html(options);
+        });
+    }
+
+    function setAge(value)
+    {
+        var ageSelect = $('#candidate-age');
+        var options = "<option>All</option>";
+        for(var index in candidateAge){
+            var selected = candidateAge[index] == value ? "selected" : "";
+            options += "<option value='"+candidateAge[index]+"'"+selected+">"+candidateAge[index]+"</option>";
+        }
+        ageSelect.html(options);
+    }
+
+    function setJobTitles(value)
+    {
+        var jobTitlesSelect = $("#candidate-job-title");
+        var options = "<option>All</option>";
+        for(var index in jobTitles){
+            var selected = jobTitles[index] == value ? "selected" : "";
+            options += "<option value='"+jobTitles[index]+"'"+selected+">"+jobTitles[index]+"</option>";
+        }
+        jobTitlesSelect.html(options);
+    }
+
+    function setExperience(value)
+    {
+        var experienceSelect = $("#candidate-experience");
+        var options = "<option>All</option>";
+        for(var index in candidateExperience){
+            var selected = candidateExperience[index] == value ? "selected" : "";
+            options += "<option value='"+candidateExperience[index]+"'"+selected+">"+candidateExperience[index]+"</option>";
+        }
+        experienceSelect.html(options);
+    }
+
+    function setSkills(value)
+    {
+        var skillsSelect = $("#candidate-skills");
+        var root = '@HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority)@Url.Content("~/")';
+        $.get(root+"api/skills", function(data)
+        {
+            var skills = JSON.parse(data);
+            var options = "<option>All</option>";
+            for(var i in skills){
+                var selected = i == value ? "selected" : "";
+                options += '<option value="' + i + '"'+selected+'>' + skills[i] + "</option>";
+            }
+            skillsSelect.html(options);
+        });
+    }
+
+    function setCandidateStatus(value)
+    {
+        var statusSelect = $("#candidate-status");
+        var root = '@HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority)@Url.Content("~/")';
+        $.get(root+"api/statuses", function(data)
+        {
+            var statuses = JSON.parse(data);
+            var options = "<option>All</option>";
+            for(var i in statuses){
+                var selected = i == value ? "selected" : "";
+                options += '<option value="' + i + '"'+selected+'>' + statuses[i] + "</option>";
+            }
+            statusSelect.html(options);
+        });
+    }
+
+    var people = @Html.Raw(Json.Encode(Model));
+    var candidateAge =[];
+    var jobTitles = [];
+    var candidateExperience = [];
+
+    for (var index in people)
+    {
+        var bdayTimestamp = people[index].BasicInfo.Birthday.split(/\D+/).join('');
+        var age = new Date().getYear() - new Date(bdayTimestamp*1).getYear();
+        if(!candidateAge.includes(age))
+        {
+            candidateAge.push(age);
         }
 
-        </table>
-        <h2>Professional Information</h2>
-        <tablecellpadding ="5">
-            <th>
-                Id
-            </th>
-            <th>
-                Full Name
-            </th>
-            <th>
-                <p>Last Degree</p>
-                <p>Earned</p>
-            </th>
-            <th>
-                <p>Years of</p>
-                <p>Experience</p>
-            </th>
-            <th>
-                Expected Salary
-            </th>
-            <th>
-                Current Salary
-            </th>
-            <th>
-                Current Job
-            </th>
-            <th>
-                Skills
-            </th>
-            @foreach (var person in Model)
-            {
-                <tr>
-                    <td>
-                        @person.ProfessionalInfo.Id
-                    </td>
-                    <
-                    <td>
-                        @person.BasicInfo.FirstName
-                        @person.BasicInfo.LastName
+        if(!jobTitles.includes(people[index].ProfessionalInfo.CurrentJobTitle) && people[index].ProfessionalInfo.CurrentJobTitle != null)
+        {
+            jobTitles.push(people[index].ProfessionalInfo.CurrentJobTitle);
+        }
 
-                    </td>
-                    foreach (var person in Model)
-                    {
-                    <td>
-                        @person.ProfessionalInfo.LastDegreeEarned
-                    </td>
-                    <td>
-                        @person.ProfessionalInfo.YearsOfExperience
-                    </td>
-                    <td>
-                   
-                    </td>
-                    <td>
-                        @person.ProfessionalInfo.CurrentSalary
-                    </td>
-                    <td>
-                        @person.ProfessionalInfo.CurrentJobTitle
-                    </td>
-                    foreach (var person in Model)
-                    {
-                    <td>
-                        @person.ProfessionalInfo.Skills
-                    </td>
-                    }
+        if(!candidateExperience.includes(people[index].ProfessionalInfo.YearsOfExperience)){
+            candidateExperience.push(people[index].ProfessionalInfo.YearsOfExperience);
+        }
+    }
 
-                    }
-                </tr>
 
+    $("document").ready(function()
+    {
+        var params = {};
+        var paramsString = window.location.href.replace(location.protocol + '//' + location.host + location.pathname + "?", '').split('&');
+        for(var i in paramsString){
+            if(paramsString[i] != ""){
+                var keyValue = paramsString[i].split('=');
+                params[keyValue[0]] = keyValue[1];
             }
+        }
 
+        setTitles(params['title']);
+        setAge(params['age']);
+        setJobTitles(params['job-title']);
+        setSkills(params['skills']);
+        setCandidateStatus(params['status']);
+        setExperience(params['exp-years']);
 
-
-
+        $('.search-select').on('change', function()
+        {
+            var params = '?';
+            $('.search-select').each(function(i, select){
+                $select = $(select);
+                if($select.val() != null && $select.val() != 'All'){
+                    params += $select.attr('name') + "=" + $select.val() + "&";
+                }
+            });
+            window.location.href  = location.protocol + '//' + location.host + location.pathname + params;
+        });
+    });
+</script>

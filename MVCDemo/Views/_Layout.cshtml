@@ -22,9 +22,9 @@
         </div>
     </div>
 
-    <div class="container body-content">
+    <div id="body-of" class="container+@ViewBag.Class body-content">
         @RenderBody()
-        <hr /> 
+        <hr />
         @RenderSection("Save", false)
     </div>
 

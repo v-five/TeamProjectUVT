@@ -26,7 +26,11 @@ namespace MVCDemo.Controllers
             {
                 return Redirect("/?error=passwordNotEqual");
             }
-            var person = new Person
+            /*else // don't comment else
+            {
+                return Redirect("../People/EditPerson/");
+            }*/
+            var person = new Person //comment everithing from var person to return redirect
             {
                 Auth = new Authentication
                 {
