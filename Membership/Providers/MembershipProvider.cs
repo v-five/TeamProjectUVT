@@ -40,7 +40,7 @@ namespace Membership.Providers
                 }
                 else
                 {
-                    throw new AuthenticationException();
+                    throw new AuthenticationException("Invalid credentials");
                 }
             }
             catch (Exception ex)
@@ -57,9 +57,8 @@ namespace Membership.Providers
 
                 var cur = context.Person;
                 if (context.Person.Where(x => x.Auth.Username.Equals(person.Auth.Username)).ToList().Count > 0)
-                {   
-                    var cacat = context.Person.Where(x => x.Auth.Username.Equals(person.Auth.Username)).ToList();
-                    throw new AuthenticationException();
+                {
+                    throw new AuthenticationException("This email has already been used");
                 }
 
                 context.Person.Add(person);
@@ -87,6 +86,7 @@ namespace Membership.Providers
 
                 existingRecord.BasicInfo = person.BasicInfo;
                 existingRecord.ContactInfo = person.ContactInfo;
+                existingRecord.ProfessionalInfo = person.ProfessionalInfo;
                 context.Person.Attach(existingRecord);
                 context.Entry(existingRecord).State = System.Data.Entity.EntityState.Modified;
 
@@ -110,6 +110,7 @@ namespace Membership.Providers
 
                 return context.Person.Include("BasicInfo")
                                         .Include("ContactInfo")
+                                        .Include("ContactInfo.Address")
                                         .Include("ProfessionalInfo")
                                         .Single(x => x.Auth.Username.Equals(_authentication.Username));
             }

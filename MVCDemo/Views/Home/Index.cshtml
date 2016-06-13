@@ -4,8 +4,8 @@
 
 @section Buttons{
     <div class="main-page-buttons">
-        <button class="main-page-button user_trigger"  href="#modal">Register</button>
-        <button class="main-page-button user_trigger"  href="#modal">Login</button> 
+        <button class="main-page-button user_trigger" id="triggerRegister" href="#modal">Register</button>
+        <button class="main-page-button user_trigger" id="triggerLogin" href="#modal">Login</button> 
     </div>
 
 }
@@ -28,6 +28,10 @@
                 {
                     <label>Username</label> <input name="username" id="username" type="text"><br>
                     <label>Password</label> <input name="loginPassword" id="loginPassword" type="password"><br>
+                    if (ViewBag.AuthType == "login" && !string.IsNullOrWhiteSpace(ViewBag.Error))
+                    {
+                        <div class="error"><p>@ViewBag.Error</p></div>
+                    }
                     <div class="action_btns">
                         <div class="one_half">
                             <input type="submit" class="btn btn_red" value="Login">
@@ -52,8 +56,12 @@
 
             <div class="content-wrapper register">
                 @using (Html.BeginForm("Register", "Authentication", FormMethod.Post,
-                            new { enctype = "multipart/form-data" }))
+                new { enctype = "multipart/form-data" }))
                 {
+                    if (ViewBag.AuthType == "register" && !string.IsNullOrWhiteSpace(ViewBag.Error))
+                    {
+                        <div class="error"><p>@ViewBag.Error</p></div>
+                    }
                     <label>Email</label> <input name="email" id="emailUser" type="email"><br>
                     <label>Password</label> <input name="password" id="passwordUser" type="password"><br>
                     <label>Re-enter password</label> <input name="confirm-password" id="confirmPassword" type="password"><br>
@@ -77,3 +85,11 @@
 <script type="text/javascript" src="~/Scripts/jQuery/jquery.leanModal.min.js"></script>
 <script type="text/javascript" src="~/Scripts/modal.js"></script>
 
+@if (!string.IsNullOrWhiteSpace(ViewBag.Error))
+{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#@(ViewBag.AuthType == "register" ? "triggerRegister" : "triggerLogin")").trigger("click");
+        });
+    </script>
+}

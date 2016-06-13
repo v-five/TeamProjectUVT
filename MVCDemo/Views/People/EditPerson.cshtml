@@ -7,6 +7,7 @@
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
 @{
+    var title = Model.BasicInfo == null || string.IsNullOrEmpty(Model.BasicInfo.Title) || Model.BasicInfo.Title == "0" ? string.Empty : Model.BasicInfo.Title;
     var firstName = Model.BasicInfo == null || string.IsNullOrEmpty(Model.BasicInfo.FirstName) ? string.Empty : Model.BasicInfo.FirstName;
     var lastName = Model.BasicInfo == null || string.IsNullOrEmpty(Model.BasicInfo.LastName) ? string.Empty : Model.BasicInfo.LastName;
     var birthday = Model.BasicInfo == null || string.IsNullOrEmpty(Model.BasicInfo.Birthday.ToString()) ? string.Empty : Model.BasicInfo.Birthday.ToString();
@@ -14,11 +15,22 @@
     var fax = Model.ContactInfo == null || string.IsNullOrEmpty(Model.ContactInfo.Fax) ? string.Empty : Model.ContactInfo.Fax;
     var website = Model.ContactInfo == null || string.IsNullOrEmpty(Model.ContactInfo.Website) ? string.Empty : Model.ContactInfo.Website;
     var lastDegree = Model.ProfessionalInfo == null || string.IsNullOrEmpty(Model.ProfessionalInfo.LastDegreeEarned) ? string.Empty : Model.ProfessionalInfo.LastDegreeEarned;
-    var yearsOfExperience = Model.ProfessionalInfo == null || string.IsNullOrEmpty(Model.ProfessionalInfo.YearsOfExperience.ToString()) ? string.Empty : Model.ProfessionalInfo.YearsOfExperience.ToString();
+    var yearsOfExperience = Model.ProfessionalInfo == null || Model.ProfessionalInfo.YearsOfExperience < 1 ? 0 : Model.ProfessionalInfo.YearsOfExperience;
     var currentSalary = Model.ProfessionalInfo == null || string.IsNullOrEmpty(Model.ProfessionalInfo.CurrentSalary.ToString()) ? string.Empty : Model.ProfessionalInfo.CurrentSalary.ToString();
     var currentJobTitle = Model.ProfessionalInfo == null || string.IsNullOrEmpty(Model.ProfessionalInfo.CurrentJobTitle) ? string.Empty : Model.ProfessionalInfo.CurrentJobTitle;
+    var country = Model.ContactInfo == null || Model.ContactInfo.Address == null || string.IsNullOrEmpty(Model.ContactInfo.Address.Country) ? string.Empty : Model.ContactInfo.Address.Country;
+    var county = Model.ContactInfo == null || Model.ContactInfo.Address == null || string.IsNullOrEmpty(Model.ContactInfo.Address.County) ? string.Empty : Model.ContactInfo.Address.County;
+    var city = Model.ContactInfo == null || Model.ContactInfo.Address == null || string.IsNullOrEmpty(Model.ContactInfo.Address.City) ? string.Empty : Model.ContactInfo.Address.City;
+    var streetName = Model.ContactInfo == null || Model.ContactInfo.Address == null || string.IsNullOrEmpty(Model.ContactInfo.Address.StreetName) ? string.Empty : Model.ContactInfo.Address.StreetName;
+    var streetNumber = Model.ContactInfo == null || Model.ContactInfo.Address == null || string.IsNullOrEmpty(Model.ContactInfo.Address.StreetNumber) ? string.Empty : Model.ContactInfo.Address.StreetNumber;
+    var isFlat = Model.ContactInfo == null ||Model.ContactInfo.Address == null ? false : Model.ContactInfo.Address.IsFlat;
+    var entrance = Model.ContactInfo == null || Model.ContactInfo.Address == null || string.IsNullOrEmpty(Model.ContactInfo.Address.Entrance) ? string.Empty : Model.ContactInfo.Address.Entrance;
+    var flatNumber = Model.ContactInfo == null || Model.ContactInfo.Address == null || string.IsNullOrEmpty(Model.ContactInfo.Address.FlatNumber) ? string.Empty : Model.ContactInfo.Address.FlatNumber;
+    var phoneNumber1 = Model.ContactInfo == null || string.IsNullOrEmpty(Model.ContactInfo.PhoneNumber1) ? string.Empty : Model.ContactInfo.PhoneNumber1;
+    var phoneNumber2 = Model.ContactInfo == null || string.IsNullOrEmpty(Model.ContactInfo.PhoneNumber2) ? string.Empty : Model.ContactInfo.PhoneNumber2;
+    var phoneNumber3 = Model.ContactInfo == null || string.IsNullOrEmpty(Model.ContactInfo.PhoneNumber3) ? string.Empty : Model.ContactInfo.PhoneNumber3;
+    var skills = Model.ProfessionalInfo == null || string.IsNullOrEmpty(Model.ProfessionalInfo.Skills) ? string.Empty : Model.ProfessionalInfo.Skills;
 }
-
     <form action="/People/SaveUserInformation" method="post" enctype="multipart/form-data">
         <div class="register container">
             <div class="row">
@@ -29,10 +41,10 @@
                         <div class="row">
                             <label class="col-lg-4">Title: </label>
                             <select class="col-lg-8 form-control" id="selectBox" onchange="myChanges(value);" name="title">
-                                <option value="None">-None-</option>
-                                <option value="Mr">Mr.</option>
-                                <option value="Mrs">Mrs.</option>
-                                <option value="Ms">Ms.</option>
+                                <option value="None" @(string.IsNullOrEmpty(title) ? "selected" : string.Empty)>-None-</option>
+                                <option value="Mr"   @(title.Equals("Mr") ? "selected" : string.Empty)>Mr.</option>
+                                <option value="Mrs" @(title.Equals("Mrs") ? "selected" : string.Empty)>Mrs.</option>
+                                <option value="Ms" @(title.Equals("Ms") ? "selected" : string.Empty)>Ms.</option>
                             </select>
                         </div>
 
@@ -72,8 +84,23 @@
                         </div>
                         <div class="row" id="phone-row1">
                             <label class="col-lg-4">Phone: </label>
-                            <input class="col-lg-8 form-control" type="text" name="phone1" onkeyup="showAddNumbers()" />
+                            <input class="col-lg-8 form-control" type="text" name="phone1" value="@phoneNumber1" onkeyup="showAddNumbers()" />
                         </div>
+                        @if (!string.IsNullOrEmpty(phoneNumber2))
+                        {
+                            <div class="row" id="phone-row2">
+                                <label class="col-lg-4">Phone 2: </label>
+                                <input class="col-lg-8 form-control" type="text" name="phone2" value="@phoneNumber2" onkeyup="showAddNumbers()" />
+                            </div>
+                        }
+                        @if (!string.IsNullOrEmpty(phoneNumber3))
+                        {
+                            <div class="row" id="phone-row3">
+                                <label class="col-lg-4">Phone 3: </label>
+                                <input class="col-lg-8 form-control" type="text" name="phone3" value="@phoneNumber3" />
+                            </div>
+                        }
+
                         <div class="row" id="add-more-numbers">
                             <button id="add-more-button" class="btn btn-primary col-lg-4">Add more</button>
                         </div>
@@ -89,35 +116,35 @@
                     <div class="container">
                         <div class="row">
                             <label class="col-lg-4">Country: </label>
-                            <input class="col-lg-8 form-control" type="text" name="country" />
+                            <input class="col-lg-8 form-control" type="text" name="country" value="@country"/>
                         </div>
                         <div class="row">
                             <label class="col-lg-4">County: </label>
-                            <input class="col-lg-8 form-control" type="text" name="county" />
+                            <input class="col-lg-8 form-control" type="text" name="county" value="@county" />
                         </div>
                         <div class="row">
                             <label class="col-lg-4">City: </label>
-                            <input class="col-lg-8 form-control" type="text" name="city" />
+                            <input class="col-lg-8 form-control" type="text" name="city" value="@city"/>
                         </div>
                         <div class="row">
                             <label class="col-lg-4">Street: </label>
-                            <input class="col-lg-8 form-control" type="text" name="street" />
+                            <input class="col-lg-8 form-control" type="text" name="streetName" value="@streetName" />
                         </div>
                         <div class="row">
                             <label class="col-lg-4">Number: </label>
-                            <input class="col-lg-8 form-control" type="text" name="number" />
+                            <input class="col-lg-8 form-control" type="text" name="streetNumber" value="@streetNumber" />
                         </div>
                         <div class="row">
                             <label class="col-lg-6">I'm living in a flat </label>
-                            <input class="col-lg-1" type="checkbox" id="if-checked" name="isFlat" />
+                            <input class="col-lg-1" type="checkbox" id="if-checked" name="isFlat" @(isFlat ? "checked" : string.Empty)/>
                         </div>
                         <div class="row flat">
                             <label class="col-lg-4">Entrance: </label>
-                            <input class="col-lg-8 form-control" type="text" name="entrance" />
+                            <input class="col-lg-8 form-control" type="text" name="entrance"  value="@entrance"/>
                         </div>
                         <div class="row flat">
                             <label class="col-lg-4">Flat no: </label>
-                            <input class="col-lg-8 form-control" type="text" name="flatNumber" />
+                            <input class="col-lg-8 form-control" type="text" name="flatNumber" value="@flatNumber"/>
                         </div>
                     </div>
                 </div>
@@ -137,7 +164,7 @@
                         </div>
                         <div class="row">
                             <label class="col-lg-5">Expected salary: </label>
-                            <input class="col-lg-7 form-control" type="text" id="amount" readonly name="expectedSalary" />
+                            <input class="col-lg-7 form-control" type="text" id="amount" readonly name="expectedSalary"/>
                         </div>
                         <div class="row">
                             <div id="slider-range"></div>
@@ -167,7 +194,7 @@
 
                             </div>
                         </div>
-                        <input name="skills" id="skills" class=""/>
+                        <input name="skills" id="skills" value="@skills" type="hidden"/>
                     </div>
                 </div>
             </div>
@@ -224,8 +251,14 @@
 
 <script>
     $(function () {
-        var isOpen = false;
-        $(".flat").hide();
+        var isOpen = @(isFlat ? "true" : "false");
+        if (isOpen) {
+            $(".flat").show();
+        }
+        else {
+            $(".flat").hide();
+        }
+
         //flat toggle
         $("#if-checked").click(function () {
             if (!isOpen) {
@@ -242,7 +275,16 @@
 
 <!--add more numbers functionality-->
 <script>
+
     var numbersShown = 1;
+
+    if (@( !string.IsNullOrEmpty(phoneNumber3) ? "true" : "false") == true) {
+        numbersShown = 3;
+    }
+    else if (@( !string.IsNullOrEmpty(phoneNumber2) ? "true" : "false") == true) {
+        numbersShown = 2;
+    }
+
     function showAddNumbers() {
         var addNumbersContainer = $("#add-more-numbers");
         addNumbersContainer.show();
@@ -262,7 +304,7 @@
                 var input = row.find("input");
 
                 row.attr("id", "#phone-row" + id);
-                label.html("Phone " + id);
+                label.html("Phone " + id + ":");
                 input.attr("name", "phone" + id)
 
                 var rowHtml = row.html();
@@ -291,7 +333,11 @@
     }
     var root = '@HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority)@Url.Content("~/")';
     var skills;
+    var rawSkills = '@skills';
     var addedSkills = [];
+    if (rawSkills) {
+        addedSkills = rawSkills.split(',');
+    }
     function addSkillToView(skill) {
         if (!skill) return;
         var skillHtml = '<div class="skill"><span onclick="removeSkill(' + "'"+ skill + "')" + '" class="skill-skill">' + skill + '</span><span class="kill-skill">x</span></div>';
@@ -342,4 +388,5 @@
     addSkillButton.on("click", addSkill);
     var addSkillInput = $("#add-skill");
     addSkillInput.on("keyup", addSkill);
+    redrawSkills();
 </script>

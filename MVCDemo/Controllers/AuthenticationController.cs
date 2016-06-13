@@ -6,6 +6,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Membership.Providers;
+using System.Security.Authentication;
 
 namespace MVCDemo.Controllers
 {
@@ -17,11 +18,11 @@ namespace MVCDemo.Controllers
             var email = Request["email"];
             var pass = Request["password"];
             var cpass = Request["confirm-password"];
-            if(string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(pass))
+            if (string.IsNullOrWhiteSpace(email) || string.IsNullOrWhiteSpace(pass))
             {
                 return Redirect("/?error=emptyMailOrPassword");
             }
-            if(pass != cpass)
+            if (pass != cpass)
             {
                 return Redirect("/?error=passwordNotEqual");
             }
@@ -35,31 +36,40 @@ namespace MVCDemo.Controllers
                 ContactInfo = new ContactInfo
                 {
                     Email = email,
-                    PhoneNumbers = new List<string>(),
-                    Addresses = new List<Address>(),
+                    Address = new Address(),
                     SocialWebSites = new List<SocialMedia>()
                 },
                 BasicInfo = new BasicInfo
                 {
                     Birthday = DateTime.Now
-                },
-                ProfessionalInfo = new ProfessionalInfo
-                {
-                    ExpectedSalary = new Range(),
-                    Skills = new List<Skill>()
                 }
             };
 
-            var membershipProvider = new MembershipProvider();
-            membershipProvider.PerformRegistration(person);
-
-            var authentication = new Authentication
+            try
             {
-                Username = !string.IsNullOrEmpty(person.Auth.Username) ? person.Auth.Username : person.ContactInfo.Email,
-                Password = person.Auth.Password,
-            };
-            membershipProvider.PerformAuthentication(authentication);
-
+                var membershipProvider = new MembershipProvider();
+                membershipProvider.PerformRegistration(person);
+                var authentication = new Authentication
+                {
+                    Username = !string.IsNullOrEmpty(person.Auth.Username) ? person.Auth.Username : person.ContactInfo.Email,
+                    Password = person.Auth.Password,
+                };
+                membershipProvider.PerformAuthentication(authentication);
+            }
+            catch (AuthenticationException ex)
+            {
+                ViewBag.Error = ex.Message;
+                ViewBag.AuthType = "register";
+                return View("~/Views/Home/Index.cshtml");
+            }
+            catch (Exception ex)
+            {
+                //Log this error
+                ViewBag.Error = ex.Message;
+                ViewBag.AuthType = "register";
+                return Json(new { error = ex.Message });
+            }
+            
             return RedirectToAction("EditPerson", "People");
         }
 
@@ -78,9 +88,18 @@ namespace MVCDemo.Controllers
             {
                 membership.PerformAuthentication(credentials);
             }
+            catch (AuthenticationException ex)
+            {
+                ViewBag.Error = ex.Message;
+                ViewBag.AuthType = "login";
+                return View("~/Views/Home/Index.cshtml");
+            }
             catch (Exception ex)
             {
-                //TODO: return view with the invalid credentials error
+                // Log this error
+                ViewBag.Error = ex.Message;
+                ViewBag.AuthType = "login";
+                return Json(new { error = ex.Message });
             }
 
             return RedirectToAction("EditPerson", "People");

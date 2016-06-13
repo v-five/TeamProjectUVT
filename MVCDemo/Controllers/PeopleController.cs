@@ -24,13 +24,11 @@ namespace MVCDemo.Controllers
             if(int.TryParse(Request["yearsOfExperience"], out i))
                 allperson = allperson.Where(p => p.ProfessionalInfo.YearsOfExperience == i);
             if(!string.IsNullOrWhiteSpace(Request["city"]))
-                allperson = allperson.Where(p => p.ContactInfo.Addresses.Any(a => a.City == Request["city"]));
+                allperson = allperson.Where(p => p.ContactInfo.Address.City == Request["city"]);
             if (!string.IsNullOrWhiteSpace(Request["lastDegreeEarned"]))
                 allperson = allperson.Where(p => p.ProfessionalInfo.LastDegreeEarned == Request["lastDegreeEarned"]);
             if (int.TryParse(Request["currentSalary"], out i))
                 allperson = allperson.Where(p => p.ProfessionalInfo.CurrentSalary == i);
-            if (int.TryParse(Request["expectedSalary"], out i))
-                allperson = allperson.Where(p => (p.ProfessionalInfo.ExpectedSalary.Min) < i && (p.ProfessionalInfo.ExpectedSalary.Max > i));
             if (int.TryParse(Request["age"], out i))
                 allperson = allperson.Where(p => (DateTime.Today.Year - p.BasicInfo.Birthday.Year) == i);
             return View(allperson.ToList());
@@ -106,36 +104,59 @@ namespace MVCDemo.Controllers
             {
                 BasicInfo = new BasicInfo
                 {
-                    Birthday = Convert.ToDateTime(Request.Form["birthday"]),
+                    Birthday = DateTime.Now,
                     FirstName = Request.Form["firstName"],
-                    LastName = Request.Form["lastName"]
+                    LastName = Request.Form["lastName"],
+                    Title = Request.Form["title"]
                 },
                 ContactInfo = new ContactInfo
                 {
-                    Addresses = new List<Address>
-                        {
-                            new Address
-                            {
-                                City = Request.Form["city"],
-                                County = Request.Form["county"],
-                                Country = Request.Form["country"],
-                                StreetAddress = Request.Form["street"]
-                            }
-                        },
+                    Address = new Address
+                    {
+                        City = Request.Form["city"],
+                        County = Request.Form["county"],
+                        Country = Request.Form["country"],
+                        StreetName = Request.Form["streetName"],
+                        StreetNumber = Request.Form["streetNumber"],
+                        IsFlat = Request.Form["isFlat"].Equals("on") ? true : false,
+                        Entrance = Request.Form["entrance"],
+                        FlatNumber = Request.Form["flatNumber"]    
+                    },
                     Fax = Request.Form["fax"],
-                    PhoneNumbers = new List<string>
-                        {
-                            Request.Form["phoneNumber"]
-                        },
+                    PhoneNumber1 = string.IsNullOrEmpty(Request.Form["phone1"]) ? string.Empty : Request.Form["phone1"],
+                    PhoneNumber2 = string.IsNullOrEmpty(Request.Form["phone2"]) ? string.Empty : Request.Form["phone2"],
+                    PhoneNumber3 = string.IsNullOrEmpty(Request.Form["phone3"]) ? string.Empty : Request.Form["phone3"],
                     Website = Request.Form["website"]
+                },
+                ProfessionalInfo = new ProfessionalInfo
+                {
+                     CurrentJobTitle = Request.Form["jobTitle"],
+                     CurrentSalary = Convert.ToInt32(Request.Form["currentSalary"]),
+                     ExpectedSalary = Request.Form["expectedSalary"],
+                     LastDegreeEarned = Request.Form["degree"],
+                     YearsOfExperience = Convert.ToInt32(Request.Form["yearsOfExperience"]),
+                     Skills = Request.Form["skills"]
                 }
             };
+
+            if (string.IsNullOrEmpty(person.ContactInfo.PhoneNumber1))
+            {
+                person.ContactInfo.PhoneNumber1 = person.ContactInfo.PhoneNumber2;
+                person.ContactInfo.PhoneNumber2 = person.ContactInfo.PhoneNumber3;
+                person.ContactInfo.PhoneNumber3 = string.Empty;
+            }
+
+            if (string.IsNullOrEmpty(person.ContactInfo.PhoneNumber2))
+            {
+                person.ContactInfo.PhoneNumber2 = person.ContactInfo.PhoneNumber3;
+                person.ContactInfo.PhoneNumber3 = string.Empty;
+            }
             
             FileManagementUtils.SaveUploadedCV(person);
             var membershipProvider = new MembershipProvider();
             membershipProvider.UpdateUserInformation(person);
             
-            return View();
+            return RedirectToAction("EditPerson", "People");
         }
     }
 }

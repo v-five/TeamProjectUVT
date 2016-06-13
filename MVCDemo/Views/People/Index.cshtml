@@ -58,17 +58,15 @@
                 <td>
                     @person.BasicInfo.Birthday.ToShortDateString()
                 </td>
-                @if (person.ContactInfo.Addresses != null)
+                @if (person.ContactInfo.Address != null)
                 {
-                    foreach (var address in person.ContactInfo.Addresses)
-                    {
-                        <td>
-                            @address.Country
-                            @address.County
-                            @address.City
-                            @address.StreetAddress
-                        </td>
-                    }
+                    <td>
+                        @person.ContactInfo.Address.Country
+                        @person.ContactInfo.Address.County
+                        @person.ContactInfo.Address.City
+                        @person.ContactInfo.Address.StreetName
+                        @person.ContactInfo.Address.StreetNumber
+                    </td>
                 }
                 @if (person.ContactInfo.Website != null)
                 {
@@ -138,7 +136,7 @@
                         @person.ProfessionalInfo.YearsOfExperience
                     </td>
                     <td>
-                        @person.ProfessionalInfo.ExpectedSalary.Min - @person.ProfessionalInfo.ExpectedSalary.Max
+                   
                     </td>
                     <td>
                         @person.ProfessionalInfo.CurrentSalary

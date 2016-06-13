@@ -335,6 +335,10 @@ a.btn_red {
     position:relative;
 }
 
+.error {
+	color: red;
+}
+
 .register .skill:hover{
     background-color:#285e8e;
 }
@@ -343,7 +347,6 @@ a.btn_red {
     position: absolute;
     top: 0;
     right: 5px;
-    color: red;
     font-weight: bold;
     cursor: pointer;
     display:none;

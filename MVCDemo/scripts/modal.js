@@ -1,18 +1,19 @@
-﻿$(document).ready(function () {
-    var toggleActive = function () {
-        if (this.innerText.toLowerCase() == "login") {
-            $("#loginHeader").addClass("active");
-            $(".content-wrapper.login").addClass("active");
-            $("#registerHeader").removeClass("active");
-            $(".content-wrapper.register").removeClass("active");
-        } else {
-            $("#loginHeader").removeClass("active");
-            $(".content-wrapper.login").removeClass("active");
-            $("#registerHeader").addClass("active");
-            $(".content-wrapper.register").addClass("active");
-        }
+﻿var toggleActive = function (type) {
+    console.log(type);
+    if (type == "login") {
+        $("#loginHeader").addClass("active");
+        $(".content-wrapper.login").addClass("active");
+        $("#registerHeader").removeClass("active");
+        $(".content-wrapper.register").removeClass("active");
+    } else {
+        $("#loginHeader").removeClass("active");
+        $(".content-wrapper.login").removeClass("active");
+        $("#registerHeader").addClass("active");
+        $(".content-wrapper.register").addClass("active");
     }
+}
 
+$(document).ready(function () {
     //trigger popup open
     $(".user_trigger").leanModal(
     {
@@ -22,8 +23,8 @@
     });
 
     //Set Right View
-    $(".user_trigger").on("click", toggleActive);
-    $(".header_title").on("click", toggleActive);
+    $(".user_trigger").on("click", function () { toggleActive(this.innerText.toLowerCase()); });
+    $(".header_title").on("click", function () { toggleActive(this.innerText.toLowerCase()); });
     
 
     $(function ()
