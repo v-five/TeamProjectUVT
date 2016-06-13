@@ -25,10 +25,10 @@
                 <div class="bsc-info col-lg-4">
                     <h2>Basic info</h2>
                     <hr>
-                    <div class="register-table">
-                        <div class="table-row">
-                            <label>Title: </label>
-                            <select id="selectBox" onchange="myChanges(value);" name="title">
+                    <div class="container">
+                        <div class="row">
+                            <label class="col-lg-4">Title: </label>
+                            <select class="col-lg-8 form-control" id="selectBox" onchange="myChanges(value);" name="title">
                                 <option value="None">-None-</option>
                                 <option value="Mr">Mr.</option>
                                 <option value="Mrs">Mrs.</option>
@@ -36,19 +36,19 @@
                             </select>
                         </div>
 
-                        <div class="table-row">
-                            <label>First name: </label>
-                            <input type="text" name="firstName" value="@firstName"/>
+                        <div class="row">
+                            <label class="col-lg-4">First name: </label>
+                            <input class="col-lg-8 form-control" type="text" name="firstName" value="@firstName"/>
                         </div>
 
-                        <div class="table-row">
-                            <label>Last name: </label>
-                            <input type="text" name="lastName" value="@lastName"/><br>
+                        <div class="row">
+                            <label class="col-lg-4">Last name: </label>
+                            <input class="col-lg-8 form-control" type="text" name="lastName" value="@lastName"/><br>
                         </div>
 
-                        <div class="table-row">
-                            <label>Birthday: </label>
-                            <input type="date" name="birthday" />
+                        <div class="row">
+                            <label class="col-lg-4">Birthday: </label>
+                            <input class="col-lg-8 form-control" type="date" name="birthday"/>
                         </div>
                     </div>
                 </div>
@@ -56,95 +56,194 @@
                 <div class="contact-inf col-lg-4">
                     <h2>Contact info</h2>
                     <hr>
-                    <div class="register-table">
-                        <div class="table-row">
-                            <label>Email: </label>
-                            <input type="email" name="emailAddress" value="@email"/>
+
+                    <div class="container">
+                        <div class="row">
+                            <label class="col-lg-4">Email: </label>
+                            <input class="col-lg-8 form-control" type="email" name="emailAddress" value="@email" />
                         </div>
-                        <div class="table-row">
-                            <label>Fax: </label>
-                            <input type="text" name="fax" value="@fax"/>
+                        <div class="row">
+                            <label class="col-lg-4">Fax: </label>
+                            <input class="col-lg-8 form-control" type="text" name="fax" value="@fax" />
                         </div>
-                        <div class="table-row">
-                            <label>Website: </label>
-                            <input type="text" name="website" value="@website"/>
+                        <div class="row">
+                            <label class="col-lg-4">Website: </label>
+                            <input class="col-lg-8 form-control" type="text" name="website" value="@website" />
+                        </div>
+                        <div class="row" id="phone-row1">
+                            <label class="col-lg-4">Phone: </label>
+                            <input class="col-lg-8 form-control" type="text" name="phone1" onkeyup="showAddNumbers()" />
+                        </div>
+                        <div class="row" id="add-more-numbers">
+                            <button id="add-more-button" class="btn btn-primary col-lg-4">Add more</button>
+                        </div>
+                        <div class="alert alert-danger row">
+                            <p>Don't you think 3 phone numbers are enough ?</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="address col-lg-4">
+                    <h2>Address</h2>
+                    <hr>
+
+                    <div class="container">
+                        <div class="row">
+                            <label class="col-lg-4">Country: </label>
+                            <input class="col-lg-8 form-control" type="text" name="country" />
+                        </div>
+                        <div class="row">
+                            <label class="col-lg-4">County: </label>
+                            <input class="col-lg-8 form-control" type="text" name="county" />
+                        </div>
+                        <div class="row">
+                            <label class="col-lg-4">City: </label>
+                            <input class="col-lg-8 form-control" type="text" name="city" />
+                        </div>
+                        <div class="row">
+                            <label class="col-lg-4">Street: </label>
+                            <input class="col-lg-8 form-control" type="text" name="street" />
+                        </div>
+                        <div class="row">
+                            <label class="col-lg-4">Number: </label>
+                            <input class="col-lg-8 form-control" type="text" name="number" />
+                        </div>
+                        <div class="row">
+                            <label class="col-lg-6">I'm living in a flat </label>
+                            <input class="col-lg-1" type="checkbox" id="if-checked" name="isFlat" />
+                        </div>
+                        <div class="row flat">
+                            <label class="col-lg-4">Entrance: </label>
+                            <input class="col-lg-8 form-control" type="text" name="entrance" />
+                        </div>
+                        <div class="row flat">
+                            <label class="col-lg-4">Flat no: </label>
+                            <input class="col-lg-8 form-control" type="text" name="flatNumber" />
                         </div>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="address col-lg-4">
-                    <h2>Address</h2>
-                    <hr>
-                    <div class="register-table">
-                        <div class="table-row">
-                            <label>Country: </label>
-                            <input type="text" name="country"/>
+                <h2>Professional Info</h2>
+                <hr>
+                <div class="prof-info col-lg-6">
+                    <div class="container">
+                        <div class="row">
+                            <label class="col-lg-5">Last degree earned: </label>
+                            <input class="col-lg-7 form-control" type="text" name="degree" value="@lastDegree" />
                         </div>
-                        <div class="table-row">
-                            <label>County: </label>
-                            <input type="text" name="county" />
+                        <div class="row">
+                            <label class="col-lg-5">Years of experience: </label>
+                            <input class="col-lg-7 form-control" type="number" name="yearsOfExperience" value="@yearsOfExperience" />
                         </div>
-                        <div class="table-row">
-                            <label>City: </label>
-                            <input type="text" name="city" />
+                        <div class="row">
+                            <label class="col-lg-5">Expected salary: </label>
+                            <input class="col-lg-7 form-control" type="text" id="amount" readonly name="expectedSalary" />
                         </div>
-                        <div class="table-row">
-                            <label>Street: </label>
-                            <input type="text" name="street" />
-                        </div>
-                        <div class="table-row">
-                            <label>Number: </label>
-                            <input type="text" name="number" />
-                        </div>
-                        <div class="table-row">
-                            <label>I'm living in a flat </label>
-                            <input type="checkbox" id="if-checked" name="isFlat"/>
-                        </div>
-                        <div class="table-row flat">
-                            <label>Entrance: </label>
-                            <input type="text" name="entrance"/>
-                        </div>
-                        <div class="table-row flat">
-                            <label>Flat number: </label>
-                            <input type="text" name="flatNumber"/>
-                        </div>
-                    </div>
-                </div>
-                <div class="prof-info col-lg-8">
-                    <h2>Professional Info</h2>
-                    <hr>
-                    <div class="register-table">
-                        <div class="table-row">
-                            <label>Last degree earned: </label>
-                            <input type="text" name="degree" value="@lastDegree"/>
-                        </div>
-                        <div class="table-row">
-                            <label>Years of experience: </label>
-                            <input type="number" name="yearsOfExperience" value="@yearsOfExperience"/>
-                        </div>
-                        <div class="table-row">
-                            <label>Expected salary: </label>
-                            <p>
-                                <label for="amount">Price range:</label>
-                                <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;" name="expectedSalary"/>
-                            </p>
+                        <div class="row">
                             <div id="slider-range"></div>
                         </div>
-                        <div class="table-row">
-                            <label>Current salary: </label>
-                            <input type="number" name="currentSalary" value="@currentSalary"/>
+                        <div class="row">
+                            <label class="col-lg-5">Current salary: </label>
+                            <input class="col-lg-7 form-control" type="number" name="currentSalary" value="@currentSalary" />
                         </div>
-                        <div class="table-row">
-                            <label>Current job title: </label>
-                            <input type="text" name="jobTitle" value="@currentJobTitle"/>
+                        <div class="row">
+                            <label class="col-lg-5">Current job title: </label>
+                            <input class="col-lg-7 form-control" type="text" name="jobTitle" value="@currentJobTitle" />
                         </div>
-                        <div class="table-row">
-                            <label>Skills:</label>
-                            <input type="text" placeholder="To be added" >
+                        <div class="row">
+                            <label class="col-lg-2">Skills:</label>
+                            <button class="col-lg-2 btn btn-primary">Add</button>
+                            <input class="col-lg-offset-1 col-lg-7 form-control" type="text" id="skills" list="suggestions">
+                            <datalist id="suggestions"> </datalist>
                         </div>
                     </div>
                 </div>
+                <div class="skills col-lg-6">
+                    <div class="container">
+                        <div class="row">
+                            <h3>Skills</h3>
+                            <hr>
+                            <div class="skill">
+                                <span class="skill-skill">SKILL</span>
+                                <span class="kill-skill">x</span>
+                            </div>
+                            <div class="skill">
+                                <span class="skill-skill">SKILL</span>
+                                <span class="kill-skill">x</span>
+                            </div>
+                            <div class="skill">
+                                <span class="skill-skill">SKILL</span>
+                                <span class="kill-skill">x</span>
+                            </div>
+                            <div class="skill">
+                                <span class="skill-skill">SKILL</span>
+                                <span class="kill-skill">x</span>
+                            </div>
+                            <div class="skill">
+                                <span class="skill-skill">SKILL</span>
+                                <span class="kill-skill">x</span>
+                            </div>
+                            <div class="skill">
+                                <span class="skill-skill">SKILL</span>
+                                <span class="kill-skill">x</span>
+                            </div>
+                            <div class="skill">
+                                <span class="skill-skill">SKILL</span>
+                                <span class="kill-skill">x</span>
+                            </div>
+                            <div class="skill">
+                                <span class="skill-skill">SKILL</span>
+                                <span class="kill-skill">x</span>
+                            </div>
+                            <div class="skill">
+                                <span class="skill-skill">SKILL</span>
+                                <span class="kill-skill">x</span>
+                            </div>
+                            <div class="skill">
+                                <span class="skill-skill">SKILL</span>
+                                <span class="kill-skill">x</span>
+                            </div>
+                            <div class="skill">
+                                <span class="skill-skill">SKILL</span>
+                                <span class="kill-skill">x</span>
+                            </div>
+                            <div class="skill">
+                                <span class="skill-skill">SKILL</span>
+                                <span class="kill-skill">x</span>
+                            </div>
+                            <div class="skill">
+                                <span class="skill-skill">SKILL</span>
+                                <span class="kill-skill">x</span>
+                            </div>
+                            <div class="skill">
+                                <span class="skill-skill">SKILL</span>
+                                <span class="kill-skill">x</span>
+                            </div>
+                            <div class="skill">
+                                <span class="skill-skill">SKILL</span>
+                                <span class="kill-skill">x</span>
+                            </div>
+                            <div class="skill">
+                                <span class="skill-skill">SKILL</span>
+                                <span class="kill-skill">x</span>
+                            </div>
+                            <div class="skill">
+                                <span class="skill-skill">SKILL</span>
+                                <span class="kill-skill">x</span>
+                            </div>
+                            <div class="skill">
+                                <span class="skill-skill">SKILL</span>
+                                <span class="kill-skill">x</span>
+                            </div>
+                            <div class="skill">
+                                <span class="skill-skill">SKILL</span>
+                                <span class="kill-skill">x</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
                 <div class="others col-lg-5">
                     <h2>Others</h2>
                     <hr>
@@ -156,7 +255,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+                
 
         <input type="submit" value="Save" />
     </form>
@@ -184,8 +283,8 @@
     $( "#slider-range" ).slider({
       range: true,
       min: 0, //value to be taken -> not hardcoded
-      max: 500,//value to be taken -> not hardcoded
-      values: [0, 500], //min and max
+      max: 3000,//value to be taken -> not hardcoded
+      values: [0, 3000], //min and max
       slide: function( event, ui ) {
         $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
       }
@@ -210,5 +309,57 @@
                 isOpen = !isOpen;
             }
         });
+    });
+</script>
+
+<!--add more numbers functionality-->
+<script>
+    var numbersShown = 1;
+    function showAddNumbers() {
+        var addNumbersContainer = $("#add-more-numbers");
+        addNumbersContainer.show();
+    }
+
+    $("document").ready(function () {
+        var addButton = $("#add-more-button");
+        addButton.on("click", function (event) {
+            event.preventDefault();
+            if (numbersShown < 3) {
+                var id = numbersShown + 1;
+                var original = $("#phone-row1");
+                var row = original.clone();
+                var label = row.find("label");
+                var input = row.find("input");
+
+                row.attr("id", "#phone-row" + id);
+                label.html("Phone " + id);
+                input.attr("name", "phone" + id)
+
+                var rowHtml = row.html();
+                rowHtml = "<div class='row' id='phone-row" + id + "' >" + rowHtml + "</div>";
+
+                $(rowHtml).insertBefore("#add-more-numbers");
+                numbersShown++;
+            }
+            else {
+                var addNumbersContainer = $("#add-more-numbers");
+                addNumbersContainer.remove();
+                $(".register .contact-inf .alert-danger").show();
+            }
+        });
+    });
+</script>
+<!-- skill behaviour -->
+<script>
+    var root = '@HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority)@Url.Content("~/")';
+    var skills;
+    $.get(root+"api/skills", function (data) {
+        skills = JSON.parse(data);
+        var dataList = $("#suggestions");
+        var items = "";
+        for (var skill in skills) {
+            items += '<option value="' + skills[skill] + '" >';
+        }
+        dataList.html(items);
     });
 </script>

@@ -277,34 +277,88 @@ a.btn_red {
 }
 
 /* Register Page */
+
+@media (min-width: 1200px){
+    .col-lg-8{
+        width: 66.66666666666666%;
+    }
+    .col-lg-7{
+        width: 58.333333333333336%
+    }
+}
+
+.register label{
+    margin: 0;
+    height: 34px;
+    line-height: 34px;
+}
+
+.row{
+    margin: 10px -15px;
+}
+
 .register h2{
+    text-align:center;
+}
+
+.register input[type="checkbox"]{
+    margin: 10.5px 0;
+}
+
+.register .btn{
+    background-color: #428bca;
+    padding:0;
+    height: 34px;
+}
+
+.register #add-more-numbers{
+    display:none;
+}
+
+.register .contact-inf .alert-danger{
+    display:none;
     text-align: center;
 }
-.register-table{
-    display:table;
-    border-spacing: 10px;
+
+.register #amount{
+    border:0; 
+    color:#428bca; 
+    font-weight:bold;
 }
 
-.register .table-row{
-    display:table-row;
+.register .skill{
+    background-color: #428bca;
+    color: #fff;
+    display: inline-block;
+    margin: 5px;
+    border-radius: 20%;
+    position:relative;
 }
 
-.register .table-cell{
-    display:table-cell;
+.register .skill:hover{
+    background-color:#285e8e;
 }
 
-.table-row > label, .table-row > input, .table-row > select{
-    vertical-align: middle;
-    display:table-cell;
+.register span.kill-skill {
+    position: absolute;
+    top: 0;
+    right: 5px;
+    color: red;
+    font-weight: bold;
+    cursor: pointer;
+    display:none;
 }
 
-.table-row > input[type="date"]{
-    min-width: 175px;
+.register .skill-skill {
+    padding: 10px 20px;
+    display: block;
+    cursor:pointer;
 }
 
-.table-row > textarea{
-    resize: none;
-    width: 175px;
-    height: 70px;
+.skill-skill:hover + .kill-skill{
+    display:block;
 }
 
+.kill-skill:hover {
+    display:block;
+}
