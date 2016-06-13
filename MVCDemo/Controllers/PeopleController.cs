@@ -104,7 +104,7 @@ namespace MVCDemo.Controllers
             {
                 BasicInfo = new BasicInfo
                 {
-                    Birthday = DateTime.Now,
+                    Birthday = Convert.ToDateTime(Request.Form["birthday"]),
                     FirstName = Request.Form["firstName"],
                     LastName = Request.Form["lastName"],
                     Title = Request.Form["title"]

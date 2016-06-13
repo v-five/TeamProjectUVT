@@ -10,7 +10,7 @@
     var title = Model.BasicInfo == null || string.IsNullOrEmpty(Model.BasicInfo.Title) || Model.BasicInfo.Title == "0" ? string.Empty : Model.BasicInfo.Title;
     var firstName = Model.BasicInfo == null || string.IsNullOrEmpty(Model.BasicInfo.FirstName) ? string.Empty : Model.BasicInfo.FirstName;
     var lastName = Model.BasicInfo == null || string.IsNullOrEmpty(Model.BasicInfo.LastName) ? string.Empty : Model.BasicInfo.LastName;
-    var birthday = Model.BasicInfo == null || string.IsNullOrEmpty(Model.BasicInfo.Birthday.ToString()) ? string.Empty : Model.BasicInfo.Birthday.ToString();
+    var birthday = Model.BasicInfo == null || string.IsNullOrEmpty(Model.BasicInfo.Birthday.ToString()) ? string.Empty : Model.BasicInfo.Birthday.Year.ToString() + "-" + Model.BasicInfo.Birthday.Month.ToString() + "-" + Model.BasicInfo.Birthday.Day.ToString();
     var email = Model.ContactInfo== null || string.IsNullOrEmpty(Model.ContactInfo.Email) ? string.Empty : Model.ContactInfo.Email;
     var fax = Model.ContactInfo == null || string.IsNullOrEmpty(Model.ContactInfo.Fax) ? string.Empty : Model.ContactInfo.Fax;
     var website = Model.ContactInfo == null || string.IsNullOrEmpty(Model.ContactInfo.Website) ? string.Empty : Model.ContactInfo.Website;
@@ -60,7 +60,7 @@
 
                         <div class="row">
                             <label class="col-lg-4">Birthday: </label>
-                            <input class="col-lg-8 form-control" type="date" name="birthday"/>
+                            <input class="col-lg-8 form-control" type="date" name="birthday" value="@birthday"/>
                         </div>
                     </div>
                 </div>
