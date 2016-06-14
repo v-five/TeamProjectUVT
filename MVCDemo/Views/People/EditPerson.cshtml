@@ -30,6 +30,7 @@
     var phoneNumber2 = Model.ContactInfo == null || string.IsNullOrEmpty(Model.ContactInfo.PhoneNumber2) ? string.Empty : Model.ContactInfo.PhoneNumber2;
     var phoneNumber3 = Model.ContactInfo == null || string.IsNullOrEmpty(Model.ContactInfo.PhoneNumber3) ? string.Empty : Model.ContactInfo.PhoneNumber3;
     var skills = Model.ProfessionalInfo == null || string.IsNullOrEmpty(Model.ProfessionalInfo.Skills) ? string.Empty : Model.ProfessionalInfo.Skills;
+    var expectedSalaryRange = Model.ProfessionalInfo == null || string.IsNullOrEmpty(Model.ProfessionalInfo.ExpectedSalary) ? string.Empty : Model.ProfessionalInfo.ExpectedSalary;
 }
     <form action="/People/SaveUserInformation" method="post" enctype="multipart/form-data">
         <div class="register container">
@@ -60,7 +61,7 @@
 
                         <div class="row">
                             <label class="col-lg-4">Birthday: </label>
-                            <input class="col-lg-8 form-control" type="date" name="birthday" value="@birthday"/>
+                            <input id="birthday" class="col-lg-8 form-control" type="date" name="birthday" value="@birthday"/>
                         </div>
                     </div>
                 </div>
@@ -202,8 +203,8 @@
                 <div class="others col-lg-5">
                     <h2>Others</h2>
                     <hr>
-                    <div class="register-table">
-                        <div class="table-row">
+                    <div class="container">
+                        <div class="row cv">
                             <label>Upload CV: </label>
                             <input type="file" name="uploadedCV">
                         </div>
@@ -212,7 +213,7 @@
             </div>
                 
 
-        <input type="submit" value="Save" />
+        <input id="save-button" class="btn btn-primary" type="submit" value="Save" />
     </form>
 <!--}-->
 <script>
@@ -363,7 +364,10 @@
     }
     function addSkill(event) {
         event.preventDefault();
-        if (event.keyCode != 13) return;
+        if (!event.clientX && !event.clientY){
+            if (event.keyCode != 13) return;
+        }
+        
         var skill = $("#add-skill").val();
         if (!addedSkills.includes(skill)) {
             if (!skill) return;
@@ -389,4 +393,31 @@
     var addSkillInput = $("#add-skill");
     addSkillInput.on("keyup", addSkill);
     redrawSkills();
+</script>
+<!--Update Slider-->
+<script>
+    var rawRange = '@expectedSalaryRange';
+    if(rawRange){
+        var range = rawRange.replace(/\$/g, "").split("-");
+        var option = {
+            values: [parseInt(range[0]),parseInt(range[1])]
+        };
+        $("document").ready(function(){
+            $( "#slider-range" ).slider(option);
+            $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
+          " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+        });
+    }
+ 
+</script>
+<!--Date problems-->
+<script>
+    var rawDate = '@birthday';
+    var date = new Date(rawDate);
+    if(date.getDate() < 9 || date.getMonth() < 9){
+        date.setDate(date.getDate() + 1);
+        var newDate = date.toISOString().split("T")[0];
+        $("#birthday").val(newDate);
+    }
+
 </script>

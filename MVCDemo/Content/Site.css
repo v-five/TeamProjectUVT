@@ -53,7 +53,7 @@ h1 {
 
 .main-page-buttons {
         float:right;
-        margin-top: 13px;
+        margin-top: 7px;
 }
 
 .main-page-button {
@@ -63,26 +63,30 @@ h1 {
 		border-radius: 4px;
 }
 
-.btn {
+.register-popup .action_btns .btn, .login .btn {
 		padding: 10px 20px;
-		background: #F4F4F2;
+		background: #428bca;
+        color: #fff;
+        height: initial;
 }
 
 .btn_red {
-		background: #ED6347;
+		background: #428bca;
 		color: #FFF;
 }
 
 .btn:hover {
-		background: #E4E4E2;
+		background: #285e8e;
+        color: #fff;
 }
 
 .btn_red:hover {
-		background: #C12B05;
+		background: #285e8e;
+        color: #fff;
 }
 
 a.btn {
-		color: #666;
+		color: #FFF;
 		text-align: center;
 		text-decoration: none;
 }
@@ -143,7 +147,7 @@ a.btn_red {
 		right: 0;
 		top: 0;
 		padding: 10px 15px;
-		background: #ED6347;
+		background: #428bca;
 		cursor: pointer;
 		color: #fff;
 		font-size: 16px;
@@ -257,7 +261,7 @@ a.btn_red {
 		clear: both;
 		overflow: hidden;
 		text-decoration: none;
-		color: #ED6347;
+		color: #428bca;
 }
 /* Forgot Password section */
 .forgot_password_section{
@@ -364,6 +368,10 @@ a.btn_red {
 
 .kill-skill:hover {
     display:block;
+}
+
+.register #save-button{
+    width: 60px;
 }
 
 /*hr view*/

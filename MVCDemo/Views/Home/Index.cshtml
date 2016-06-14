@@ -4,8 +4,8 @@
 
 @section Buttons{
     <div class="main-page-buttons">
-        <button class="main-page-button user_trigger" id="triggerRegister" href="#modal">Register</button>
-        <button class="main-page-button user_trigger" id="triggerLogin" href="#modal">Login</button> 
+        <button class="btn btn-primary user_trigger" id="triggerRegister" href="#modal">Register</button>
+        <button class="btn btn-primary user_trigger" id="triggerLogin" href="#modal">Login</button> 
     </div>
 
 }
@@ -54,7 +54,7 @@
                 </div>
             </div>
 
-            <div class="content-wrapper register">
+            <div class="content-wrapper register register-popup">
                 @using (Html.BeginForm("Register", "Authentication", FormMethod.Post,
                 new { enctype = "multipart/form-data" }))
                 {
